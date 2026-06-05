@@ -4,16 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Indonésie 2026 — Logements, Vols &amp; Budget</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#FBF6EC;--ink:#16241F;--muted:#5C6B62;--jade:#0E5C4A;--jade-2:#0A4034;--jade-soft:#2E7D6B;
     --coral:#E2553A;--gold:#D99A30;--sand:#EFE6D4;--line:#E2D9C6;--card:#FFFFFF;
     --shadow:0 1px 2px rgba(20,36,31,.05),0 10px 24px -16px rgba(14,92,74,.35);
     --ok:#0E5C4A;--todo:#E2553A;--opt:#C98A1F;--c1:#0E5C4A;--c2:#2E6FB0;--sky:#1F6FA8;}
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;padding:0}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;padding:0}
   body{font-family:"DM Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.45;
     background-image:radial-gradient(circle at 12% 0%,rgba(14,92,74,.06),transparent 40%),radial-gradient(circle at 90% 4%,rgba(226,85,58,.06),transparent 35%);}
   .wrap{max-width:680px;margin:0 auto;padding:0 16px 64px}
@@ -24,9 +22,10 @@
   .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.8;font-weight:700;margin:0}
   h1{font-family:"Fraunces",serif;font-weight:600;font-size:42px;line-height:.98;margin:6px 0 4px;letter-spacing:-.01em}
   h1 em{font-style:italic;color:#F4C66B;font-weight:500}
-  .daterange{font-size:14px;opacity:.92;margin:0 0 16px;font-weight:500}.daterange b{color:#F4C66B}
-  .travelers{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+  .daterange{font-size:14px;opacity:.92;margin:0 0 14px;font-weight:500}.daterange b{color:#F4C66B}
+  .travelers{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
   .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:500}
+  .splitnote{font-size:12px;opacity:.85;margin:0 0 14px;font-weight:500}
   .cov-stat{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:7px}
   .cov-stat .big{font-family:"Fraunces",serif;font-size:22px;font-weight:600}.cov-stat .lbl{font-size:12px;opacity:.85}
   .bar{height:9px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden}
@@ -35,62 +34,53 @@
   .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
   button{font-family:inherit;cursor:pointer;border:none;font-weight:700;border-radius:12px;transition:.15s}
   .btn-main{flex:1;min-width:120px;background:var(--coral);color:#fff;padding:13px 16px;font-size:15px;box-shadow:0 8px 18px -8px rgba(226,85,58,.7)}
-  .btn-main:active{transform:translateY(1px)}
-  .btn-sky{background:var(--sky);box-shadow:0 8px 18px -8px rgba(31,111,168,.7)}
+  .btn-main:active{transform:translateY(1px)}.btn-sky{background:var(--sky);box-shadow:0 8px 18px -8px rgba(31,111,168,.7)}
   .btn-ghost{background:#fff;color:var(--jade);border:1.5px solid var(--line);padding:13px 14px;font-size:13.5px}.btn-ghost:active{background:var(--sand)}
   #sync{font-size:12px;font-weight:700;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap}
-  #sync.ok{color:var(--jade);border-color:#CFE6DB;background:#F1F8F4}
-  #sync.err{color:#B23A22;border-color:#F2C9BE;background:#FBE9E3}
-  #sync.busy{color:var(--sky);border-color:#CFE0EE;background:#F1F7FC}
+  #sync.ok{color:var(--jade);border-color:#CFE6DB;background:#F1F8F4}#sync.err{color:#B23A22;border-color:#F2C9BE;background:#FBE9E3}#sync.busy{color:var(--sky);border-color:#CFE0EE;background:#F1F7FC}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:22px;box-shadow:var(--shadow);display:none}
   .panel.open{display:block;animation:pop .25s ease}@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1}}
   .panel h2{font-family:"Fraunces",serif;font-size:19px;margin:0 0 14px;font-weight:600}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .field{margin-bottom:11px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{margin-bottom:11px}
   label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
   input,select,textarea{width:100%;font-family:inherit;font-size:15px;color:var(--ink);background:#FCFAF4;border:1.5px solid var(--line);border-radius:11px;padding:11px 12px}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--jade-soft);background:#fff}
-  textarea{resize:vertical;min-height:54px}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--jade-soft);background:#fff}textarea{resize:vertical;min-height:54px}
   .seg{display:flex;gap:6px}.seg label{flex:1;margin:0;text-transform:none;letter-spacing:0;font-size:13px}.seg input{display:none}
   .seg span{display:block;text-align:center;padding:10px 4px;border:1.5px solid var(--line);border-radius:11px;background:#FCFAF4;font-weight:600;color:var(--muted)}
   .seg input:checked+span{color:#fff;border-color:transparent}
   .seg .s-ok input:checked+span{background:var(--ok)}.seg .s-todo input:checked+span{background:var(--todo)}.seg .s-opt input:checked+span{background:var(--opt)}
   .seg .s-c1 input:checked+span{background:var(--c1)}.seg .s-c2 input:checked+span{background:var(--c2)}
   .seg .s-pre input:checked+span{background:var(--jade-soft)}.seg .s-on input:checked+span{background:var(--gold)}
+  .seg .s-com input:checked+span{background:var(--jade-soft)}.seg .s-sl input:checked+span{background:var(--sky)}
   .form-actions{display:flex;gap:8px;margin-top:6px}.form-actions .btn-main{flex:2}.form-actions .btn-ghost{flex:1}
   .sec-h{display:flex;align-items:baseline;gap:9px;margin:6px 2px 12px}
   .sec-h h2{font-family:"Fraunces",serif;font-size:24px;font-weight:600;margin:0;letter-spacing:-.01em}
   .sec-h .count{font-size:12.5px;color:var(--muted);font-weight:600;background:var(--sand);padding:2px 9px;border-radius:999px}
   .stay,.flight{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 16px 15px 19px;margin-bottom:11px;box-shadow:var(--shadow);overflow:hidden}
   .stay::before,.flight::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
-  .stay.ok::before{background:var(--ok)}.stay.todo::before{background:var(--todo)}.stay.opt::before{background:var(--opt)}
-  .flight::before{background:var(--sky)}
+  .stay.ok::before{background:var(--ok)}.stay.todo::before{background:var(--todo)}.stay.opt::before{background:var(--opt)}.flight::before{background:var(--sky)}
   .stay-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
   .stay-dates{font-size:12.5px;color:var(--muted);font-weight:600}.stay-dates b{color:var(--jade)}
   .stay-name{font-family:"Fraunces",serif;font-size:19px;font-weight:600;margin:3px 0 1px;line-height:1.15}
   .stay-place{font-size:13.5px;color:var(--muted)}
   .badge{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:4px 9px;border-radius:999px;white-space:nowrap;flex-shrink:0}
-  .badge.ok{background:#DDEFE4;color:var(--ok)}.badge.todo{background:#FBE2DB;color:#B23A22}.badge.opt{background:#F7EBCF;color:#8E6410}
-  .badge.sky{background:#E3EFF8;color:var(--sky)}
-  .stay-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12.5px;color:var(--muted)}
+  .badge.ok{background:#DDEFE4;color:var(--ok)}.badge.todo{background:#FBE2DB;color:#B23A22}.badge.opt{background:#F7EBCF;color:#8E6410}.badge.sky{background:#E3EFF8;color:var(--sky)}
+  .slp{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:6px;background:#EAF1FA;color:#1F4E82}
+  .stay-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12.5px;color:var(--muted);align-items:center}
   .stay-meta a{color:var(--jade);text-decoration:none;font-weight:700}.stay-meta .who b{color:var(--ink)}
   .stay-cost{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--ink)}
   .dot{width:8px;height:8px;border-radius:50%;display:inline-block}.dot.c1{background:var(--c1)}.dot.c2{background:var(--c2)}
   .stay-notes{margin-top:8px;font-size:13px;color:var(--ink);background:#FCFAF4;border-radius:9px;padding:8px 10px;border:1px solid var(--line)}
   .nights-tag{font-size:11px;font-weight:800;color:var(--jade);background:#E6F0EB;padding:2px 8px;border-radius:7px;margin-left:6px}
-  .stay-actions{display:flex;gap:14px;margin-top:11px}
-  .stay-actions button{background:none;color:var(--muted);font-size:12.5px;font-weight:700;padding:0}.stay-actions .del{color:var(--coral)}
+  .stay-actions{display:flex;gap:14px;margin-top:11px}.stay-actions button{background:none;color:var(--muted);font-size:12.5px;font-weight:700;padding:0}.stay-actions .del{color:var(--coral)}
   .tickets{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
   .file-chip{display:inline-flex;align-items:center;gap:7px;background:#F3F8FC;border:1px solid #D5E6F2;border-radius:10px;padding:6px 8px 6px 10px;font-size:12.5px;max-width:100%}
-  .file-chip .fn{font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
-  .file-chip .sz{color:var(--muted);font-size:11px}
-  .file-chip button{background:none;padding:0 2px;font-size:12px;font-weight:700;color:var(--sky)}
-  .file-chip button.x{color:var(--coral)}
+  .file-chip .fn{font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}.file-chip .sz{color:var(--muted);font-size:11px}
+  .file-chip button{background:none;padding:0 2px;font-size:12px;font-weight:700;color:var(--sky)}.file-chip button.x{color:var(--coral)}
   .add-ticket{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px dashed #B9D4E6;color:var(--sky);border-radius:10px;padding:6px 11px;font-size:12.5px;font-weight:700}
   .budget-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
   .budget-total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
-  .budget-total .big{font-family:"Fraunces",serif;font-size:34px;font-weight:600;letter-spacing:-.01em}
-  .budget-total .lbl{font-size:12px;color:var(--muted);font-weight:600}
+  .budget-total .big{font-family:"Fraunces",serif;font-size:34px;font-weight:600;letter-spacing:-.01em}.budget-total .lbl{font-size:12px;color:var(--muted);font-weight:600}
   .split-bars{display:flex;height:14px;border-radius:999px;overflow:hidden;margin:12px 0 6px;background:var(--sand)}
   .split-bars i{display:block;height:100%}.split-bars .b1{background:var(--c1)}.split-bars .b2{background:var(--c2)}
   .couple-rows{display:flex;flex-direction:column;gap:7px;margin-top:10px}
@@ -100,14 +90,12 @@
   .settle.bal{background:#DDEFE4;color:var(--jade)}.settle.owe{background:#EAF1FA;color:#1F4E82}.settle b{font-weight:800}
   .cat-split{display:flex;gap:10px;margin-top:12px}
   .cat-box{flex:1;background:#FCFAF4;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-  .cat-box .k{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
-  .cat-box .v{font-family:"Fraunces",serif;font-size:18px;font-weight:600;margin-top:2px}
+  .cat-box .k{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}.cat-box .v{font-family:"Fraunces",serif;font-size:18px;font-weight:600;margin-top:2px}
   .rate-row{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--muted)}.rate-row input{width:110px;padding:7px 9px;font-size:14px}
   .unassigned{margin-top:10px;font-size:12.5px;color:#B23A22;font-weight:600}
   .exp{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px 12px 17px;margin-bottom:9px;box-shadow:var(--shadow);overflow:hidden}
   .exp::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}.exp.c1::before{background:var(--c1)}.exp.c2::before{background:var(--c2)}
-  .exp-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-  .exp-label{font-weight:700;font-size:15px}
+  .exp-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.exp-label{font-weight:700;font-size:15px}
   .exp-sub{font-size:12px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .exp-amt{font-family:"Fraunces",serif;font-size:18px;font-weight:600;white-space:nowrap}
   .tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:6px}
@@ -122,8 +110,13 @@
   .tl-what{font-family:"Fraunces",serif;font-size:17px;font-weight:600;margin:1px 0}.tl-where{font-size:13px;color:var(--muted)}
   .tl-gap{background:#FBE2DB;border:1px dashed #E2553A;border-radius:12px;padding:10px 13px}
   .tl-gap .tl-when{color:#B23A22}.tl-gap .tl-what{color:#B23A22;font-size:15px}.tl-gap .tl-where{color:#A2452F}
+  .tl-node.depart::before{background:var(--gold);box-shadow:0 0 0 1.5px var(--gold)}
+  .tl-depart{background:#FBF1DA;border:1px dashed var(--gold);border-radius:12px;padding:10px 13px}
+  .tl-depart .tl-when{color:#8E6410}.tl-depart .tl-what{color:#8E6410;font-size:15px}.tl-depart .tl-where{color:#9A7320}
   .overlap{color:var(--coral);font-weight:700;font-size:11.5px;margin-top:2px}
   .empty{text-align:center;color:var(--muted);padding:26px 18px;border:1.5px dashed var(--line);border-radius:16px;font-size:14px}.empty b{color:var(--ink)}
+  .sl-block{background:#F3F8FC;border:1px solid #DBE7F2;border-radius:22px;padding:18px 16px 6px;margin-top:30px}
+  .sl-block .sec-h h2{color:#1F4E82}.sl-block .sec-h .count{background:#E1ECF6;color:#1F4E82}
   footer{text-align:center;font-size:11.5px;color:var(--muted);margin-top:28px;line-height:1.6}
   .hidden-file{display:none}
   #setup{display:none;max-width:560px;margin:60px auto;padding:0 18px}
@@ -136,13 +129,9 @@
 
 <div id="setup"><div class="box">
   <h1>Configuration requise</h1>
-  <p>Cette app a besoin de son backend Google Apps Script pour partager les données avec le groupe.</p>
-  <ol>
-    <li>Déploie le fichier <code>Code.gs</code> en application web (voir <code>README.md</code>).</li>
-    <li>Copie l'URL qui finit par <code>/exec</code>.</li>
-    <li>Ouvre <code>index.html</code>, et remplace la valeur de <code>API_URL</code> par cette URL.</li>
-    <li>Recharge la page.</li>
-  </ol>
+  <p>Cette app a besoin de son backend Google Apps Script pour partager les données.</p>
+  <ol><li>Déploie <code>Code.gs</code> en application web (voir <code>README.md</code>).</li>
+  <li>Copie l'URL en <code>/exec</code>.</li><li>Remplace <code>API_URL</code> dans <code>index.html</code>.</li><li>Recharge.</li></ol>
 </div></div>
 
 <div class="wrap" id="app" style="display:none">
@@ -151,9 +140,11 @@
     <h1>Indonésie <em>2026</em></h1>
     <p class="daterange"><b id="hd-range"></b> · <span id="hd-nights"></span> nuits</p>
     <div class="travelers" id="travelers"></div>
+    <p class="splitnote" id="splitnote"></p>
     <div class="cov-stat"><span class="big" id="cov-text"></span><span class="lbl">nuits avec logement</span></div>
     <div class="bar"><i id="cov-bar" style="width:0%"></i></div>
     <div class="gapline" id="gap-summary"></div>
+    <div class="gapline" id="sl-summary" style="margin-top:8px"></div>
   </header>
 
   <div class="toolbar">
@@ -167,14 +158,14 @@
   </div>
 
   <div class="panel" id="form-panel">
-    <h2 id="form-title">Nouvelle étape</h2>
-    <input type="hidden" id="f-id">
+    <h2 id="form-title">Nouvelle étape</h2><input type="hidden" id="f-id">
+    <div class="field"><label>Partie du voyage</label><div class="seg"><label class="s-com"><input type="radio" name="sphase" value="commun" checked><span>Commun (29/6–1/8)</span></label><label class="s-sl"><input type="radio" name="sphase" value="sl"><span>Samy &amp; Liza (1–9/8)</span></label></div></div>
     <div class="grid2"><div class="field"><label>Arrivée</label><input type="date" id="f-checkin"></div><div class="field"><label>Départ</label><input type="date" id="f-checkout"></div></div>
     <div class="field"><label>Logement</label><input type="text" id="f-name" placeholder="ex. Villa Kayu, The Bali Dream…"></div>
     <div class="field"><label>Lieu / zone</label><input type="text" id="f-place" placeholder="ex. Ubud, Bali"></div>
     <div class="field"><label>Adresse complète</label><input type="text" id="f-address" placeholder="ex. Jl. Raya Tegallalang No.5, Ubud"></div>
     <div class="grid2"><div class="field"><label>Montant payé</label><input type="number" inputmode="decimal" min="0" id="f-cost" placeholder="0"></div><div class="field"><label>Devise</label><select id="f-costcur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
-    <div class="field"><label>Payé par (couple)</label><div class="seg" id="f-payer"><label class="s-c1"><input type="radio" name="spayer" value="c1"><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="spayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
+    <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="spayer" value="c1"><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="spayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
     <div class="grid2"><div class="field"><label>Réservé par</label><select id="f-bookedby"></select></div><div class="field"><label>Lien</label><input type="url" id="f-link" placeholder="https://…"></div></div>
     <div class="field"><label>Statut</label><div class="seg"><label class="s-ok"><input type="radio" name="status" value="ok" checked><span>Réservé</span></label><label class="s-opt"><input type="radio" name="status" value="opt"><span>Option</span></label><label class="s-todo"><input type="radio" name="status" value="todo"><span>À réserver</span></label></div></div>
     <div class="field"><label>Notes</label><textarea id="f-notes" placeholder="n° résa, transport, contact…"></textarea></div>
@@ -182,27 +173,28 @@
   </div>
 
   <div class="panel" id="flight-panel">
-    <h2 id="flight-title">Nouveau vol</h2>
-    <input type="hidden" id="v-id">
+    <h2 id="flight-title">Nouveau vol</h2><input type="hidden" id="v-id">
+    <div class="field"><label>Partie du voyage</label><div class="seg"><label class="s-com"><input type="radio" name="vphase" value="commun" checked><span>Commun</span></label><label class="s-sl"><input type="radio" name="vphase" value="sl"><span>Samy &amp; Liza</span></label></div></div>
     <div class="field"><label>Trajet</label><input type="text" id="v-label" placeholder="ex. Paris CDG → Denpasar (DPS)"></div>
     <div class="grid2"><div class="field"><label>Date</label><input type="date" id="v-date"></div><div class="field"><label>N° de vol</label><input type="text" id="v-flightno" placeholder="ex. GA 881"></div></div>
-    <div class="grid2"><div class="field"><label>Compagnie</label><input type="text" id="v-airline" placeholder="ex. Garuda, Qatar…"></div><div class="field"><label>Passagers</label><input type="text" id="v-pax" placeholder="ex. les 6 / Vinod+Shanez+Ameya"></div></div>
+    <div class="grid2"><div class="field"><label>Compagnie</label><input type="text" id="v-airline" placeholder="ex. Garuda…"></div><div class="field"><label>Passagers</label><input type="text" id="v-pax" placeholder="ex. les 6 / Samy+Liza"></div></div>
     <div class="grid2"><div class="field"><label>Prix payé</label><input type="number" inputmode="decimal" min="0" id="v-cost" placeholder="0"></div><div class="field"><label>Devise</label><select id="v-costcur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
     <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="vpayer" value="c1"><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="vpayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
     <div class="field"><label>Notes</label><textarea id="v-notes" placeholder="référence, bagages, escale…"></textarea></div>
     <div class="form-actions"><button class="btn-main btn-sky" id="flight-save">Enregistrer</button><button class="btn-ghost" id="flight-cancel">Annuler</button></div>
-    <p style="font-size:11.5px;color:var(--muted);margin:10px 0 0">Après enregistrement, joins les billets PDF/image depuis la fiche du vol.</p>
+    <p style="font-size:11.5px;color:var(--muted);margin:10px 0 0">Après enregistrement, joins les billets depuis la fiche du vol.</p>
   </div>
 
   <section><div class="sec-h"><h2>Logements</h2><span class="count" id="stay-count"></span></div><div id="stays"></div></section>
   <section style="margin-top:26px"><div class="sec-h"><h2>Vols &amp; billets</h2><span class="count" id="flight-count"></span></div><div id="flights"></div></section>
 
   <section style="margin-top:26px">
-    <div class="sec-h"><h2>Budget</h2><span class="count">50 / 50</span></div>
-    <div class="budget-card" id="budget-summary"></div>
+    <div class="sec-h"><h2>Budget commun</h2><span class="count">50 / 50</span></div>
+    <div class="budget-card" id="budget-common"></div>
     <button class="btn-main" id="add-exp-btn" style="width:100%;margin-bottom:14px">+ Ajouter une dépense</button>
     <div class="panel" id="exp-panel">
       <h2 id="exp-title">Nouvelle dépense</h2><input type="hidden" id="e-id">
+      <div class="field"><label>Partie du voyage</label><div class="seg"><label class="s-com"><input type="radio" name="ephase" value="commun" checked><span>Commun</span></label><label class="s-sl"><input type="radio" name="ephase" value="sl"><span>Samy &amp; Liza</span></label></div></div>
       <div class="field"><label>Intitulé</label><input type="text" id="e-label" placeholder="ex. Location voiture, resto, activité…"></div>
       <div class="grid2"><div class="field"><label>Montant</label><input type="number" inputmode="decimal" min="0" id="e-amount" placeholder="0"></div><div class="field"><label>Devise</label><select id="e-cur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
       <div class="field"><label>Catégorie</label><div class="seg"><label class="s-pre"><input type="radio" name="ecat" value="prepaid" checked><span>Payé d'avance</span></label><label class="s-on"><input type="radio" name="ecat" value="onsite"><span>Sur place</span></label></div></div>
@@ -213,26 +205,27 @@
     <div id="expenses"></div>
   </section>
 
-  <section style="margin-top:26px"><div class="sec-h"><h2>Itinéraire</h2></div><div id="itinerary"></div></section>
+  <section style="margin-top:26px"><div class="sec-h"><h2>Itinéraire commun</h2></div><div id="itinerary"></div></section>
+
+  <section class="sl-block">
+    <div class="sec-h"><h2>Prolongation Samy &amp; Liza</h2><span class="count">1 – 9 août · à part</span></div>
+    <div class="budget-card" id="budget-sl"></div>
+    <div id="itinerary-sl"></div>
+  </section>
+
   <footer id="foot"></footer>
 </div>
 
 <script>
-/* ============================================================
-   COLLE ICI l'URL de ton application web Apps Script (…/exec)
-   ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbzpO7Ri6IkKouz9smcDKMdwkfzY4fv08rO_3QZUzCqar99QR3Jbm68H1U3fyh7MkaoC1g/exec";
-
-const TRIP_START="2026-06-29",TRIP_END="2026-08-01";
+const API_URL = "COLLE_ICI_TON_URL_APPS_SCRIPT";
+const TRIP_START="2026-06-29",COMMON_END="2026-08-01",SL_END="2026-08-09";
 const DEFAULT_TRAVELERS=["Vinod","Shanez","Ameya","Samy","Liza","Leyna"];
 const COUPLES={c1:"Vinod & Shanez",c2:"Samy & Liza"};
-let DATA=defaults();
-let attachTarget=null,lastRefresh=0;
+let DATA=defaults(),attachTarget=null,lastRefresh=0;
 
 function defaults(){return{travelers:[...DEFAULT_TRAVELERS],stays:[],flights:[],expenses:[],rate:17500};}
 function normalize(d){return{travelers:(d&&d.travelers&&d.travelers.length)?d.travelers:[...DEFAULT_TRAVELERS],stays:Array.isArray(d&&d.stays)?d.stays:[],flights:Array.isArray(d&&d.flights)?d.flights:[],expenses:Array.isArray(d&&d.expenses)?d.expenses:[],rate:(d&&d.rate)||17500};}
 
-/* dates */
 function toUTC(iso){const[y,m,d]=iso.split("-").map(Number);return Date.UTC(y,m-1,d);}
 function addDays(iso,n){const dt=new Date(toUTC(iso));dt.setUTCDate(dt.getUTCDate()+n);return dt.toISOString().slice(0,10);}
 function diffN(a,b){return Math.round((toUTC(b)-toUTC(a))/86400000);}
@@ -245,57 +238,50 @@ function eur(n){return Math.round(n).toLocaleString("fr-FR")+" €";}
 function money(a,cur){return Math.round(a).toLocaleString("fr-FR")+(cur==="idr"?" Rp":" €");}
 function fSize(b){return b>1048576?(b/1048576).toFixed(1)+" Mo":Math.max(1,Math.round(b/1024))+" Ko";}
 function fIcon(t){return(t||"").startsWith("image")?"🖼️":(t||"").includes("pdf")?"📄":"📎";}
+function phaseOf(o){return(o&&o.phase)||"commun";}
 
-/* ---------- API (Apps Script) ---------- */
-function setSync(state){const el=document.getElementById("sync");el.className="";
-  if(state==="ok"){el.classList.add("ok");el.textContent="✓ Synchronisé";}
-  else if(state==="busy"){el.classList.add("busy");el.textContent="⟳ Sync…";}
-  else if(state==="err"){el.classList.add("err");el.textContent="⚠ Hors ligne";}
-  else{el.textContent="⟳";}}
-async function api(payload){
-  const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload),redirect:"follow"});
-  if(!res.ok)throw new Error("HTTP "+res.status);
-  return res.json();
-}
-async function load(){setSync("busy");
-  try{const r=await api({action:"load"});
-    if(r.ok&&r.data){DATA=normalize(r.data);}
-    else if(r.ok&&!r.data){DATA=defaults();await api({action:"save",data:DATA});}
-    setSync("ok");return true;
-  }catch(e){setSync("err");return false;}
-}
-async function save(){setSync("busy");
-  try{await api({action:"save",data:DATA});setSync("ok");}catch(e){setSync("err");}
-}
-async function refresh(){lastRefresh=Date.now();setSync("busy");
-  try{const r=await api({action:"load"});if(r.ok&&r.data){DATA=normalize(r.data);renderAll();}setSync("ok");}catch(e){setSync("err");}
-}
+function setSync(s){const el=document.getElementById("sync");el.className="";
+  if(s==="ok"){el.classList.add("ok");el.textContent="✓ Synchronisé";}
+  else if(s==="busy"){el.classList.add("busy");el.textContent="⟳ Sync…";}
+  else if(s==="err"){el.classList.add("err");el.textContent="⚠ Hors ligne";}else el.textContent="⟳";}
+async function api(p){const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p),redirect:"follow"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}
+async function load(){setSync("busy");try{const r=await api({action:"load"});if(r.ok&&r.data){DATA=normalize(r.data);}else if(r.ok&&!r.data){DATA=defaults();await api({action:"save",data:DATA});}setSync("ok");return true;}catch(e){setSync("err");return false;}}
+async function save(){setSync("busy");try{await api({action:"save",data:DATA});setSync("ok");}catch(e){setSync("err");}}
+async function refresh(){lastRefresh=Date.now();setSync("busy");try{const r=await api({action:"load"});if(r.ok&&r.data){DATA=normalize(r.data);renderAll();}setSync("ok");}catch(e){setSync("err");}}
 function readAsDataURL(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=()=>rej(fr.error);fr.readAsDataURL(file);});}
 function b64toBlob(b64,mime){const bin=atob(b64);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime||"application/octet-stream"});}
 
-/* ---------- helpers ---------- */
 function sortedStays(){return[...DATA.stays].sort((a,b)=>a.checkin<b.checkin?-1:a.checkin>b.checkin?1:0);}
 function sortedFlights(){return[...DATA.flights].sort((a,b)=>(a.date||"")<(b.date||"")?-1:1);}
-function coverage(){const all=nights(TRIP_START,TRIP_END);const cnt={};all.forEach(n=>cnt[n]=0);DATA.stays.forEach(s=>nights(s.checkin,s.checkout).forEach(n=>{if(n in cnt)cnt[n]++;}));return{total:all.length,covered:all.filter(n=>cnt[n]>=1).length,gapsNights:all.filter(n=>cnt[n]===0)};}
+function coveragePhase(phase,start,end){const all=nights(start,end);const cnt={};all.forEach(n=>cnt[n]=0);
+  DATA.stays.forEach(s=>{if(phaseOf(s)===phase)nights(s.checkin,s.checkout).forEach(n=>{if(n in cnt)cnt[n]++;});});
+  return{total:all.length,covered:all.filter(n=>cnt[n]>=1).length,gaps:all.filter(n=>cnt[n]===0)};}
 function groupRanges(list){const r=[];let i=0;while(i<list.length){let j=i;while(j+1<list.length&&addDays(list[j],1)===list[j+1])j++;r.push({from:list[i],to:addDays(list[j],1)});i=j+1;}return r;}
 function statusLabel(s){return s==="ok"?"Réservé":s==="opt"?"Option":"À réserver";}
 function mapsUrl(s){const q=(s.address&&s.address.trim())||[s.name,s.place].filter(Boolean).join(", ");return"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
 
-/* ---------- render ---------- */
 function renderHeader(){
-  document.getElementById("hd-range").textContent=fmt(TRIP_START)+" → "+fmt(TRIP_END);
-  document.getElementById("hd-nights").textContent=diffN(TRIP_START,TRIP_END);
+  document.getElementById("hd-range").textContent=fmt(TRIP_START)+" → "+fmt(COMMON_END);
+  document.getElementById("hd-nights").textContent=diffN(TRIP_START,COMMON_END);
   document.getElementById("travelers").innerHTML=DATA.travelers.map(t=>`<span class="chip">${esc(t)}</span>`).join("");
-  const c=coverage();document.getElementById("cov-text").textContent=c.covered+" / "+c.total;
+  document.getElementById("splitnote").innerHTML="Voyage commun à 6 jusqu'au "+fmt(COMMON_END)+" · Samy &amp; Liza prolongent <b>seuls</b> jusqu'au "+fmt(SL_END)+" (budget séparé)";
+  const c=coveragePhase("commun",TRIP_START,COMMON_END);
+  document.getElementById("cov-text").textContent=c.covered+" / "+c.total;
   document.getElementById("cov-bar").style.width=(c.total?Math.round(c.covered/c.total*100):0)+"%";
   const gl=document.getElementById("gap-summary");
-  if(!c.gapsNights.length){gl.className="gapline ok";gl.innerHTML="✓ Toutes les nuits ont un logement prévu";}
-  else{const r=groupRanges(c.gapsNights);gl.className="gapline";gl.innerHTML="⚠ "+c.gapsNights.length+" nuit"+(c.gapsNights.length>1?"s":"")+" sans logement : "+r.map(x=>fmt(x.from)+"→"+fmt(x.to)).join(" · ");}
+  if(!c.gaps.length){gl.className="gapline ok";gl.innerHTML="✓ Voyage commun : toutes les nuits ont un logement";}
+  else{const r=groupRanges(c.gaps);gl.className="gapline";gl.innerHTML="⚠ Commun : "+c.gaps.length+" nuit"+(c.gaps.length>1?"s":"")+" sans logement — "+r.map(x=>fmt(x.from)+"→"+fmt(x.to)).join(" · ");}
+  const sl=coveragePhase("sl",COMMON_END,SL_END);const sg=document.getElementById("sl-summary");
+  if(!sl.gaps.length&&sl.covered===sl.total)sg.innerHTML="✓ Prolongation Samy &amp; Liza : "+sl.total+" nuits couvertes";
+  else sg.innerHTML="🟦 Prolongation Samy &amp; Liza : "+sl.covered+" / "+sl.total+" nuits avec logement";
 }
+
+function phaseChip(o){return phaseOf(o)==="sl"?`<span class="slp">Samy &amp; Liza</span>`:"";}
 function renderStays(){const wrap=document.getElementById("stays"),list=sortedStays();
   document.getElementById("stay-count").textContent=list.length+(list.length>1?" étapes":" étape");
   if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun logement pour l'instant.</b><br>Touche « + Étape » pour répertorier où vous dormez.</div>`;return;}
   wrap.innerHTML=list.map(s=>{const n=diffN(s.checkin,s.checkout);const meta=[];
+    const pc=phaseChip(s);if(pc)meta.push(pc);
     if(s.cost>0)meta.push(`<span class="stay-cost">${s.payer?`<span class="dot ${s.payer}"></span>`:""}${money(s.cost,s.costcur||"eur")}${s.payer?` · ${esc(COUPLES[s.payer])}`:""}</span>`);
     if(s.bookedby)meta.push(`<span class="who">résa <b>${esc(s.bookedby)}</b></span>`);
     if(s.link)meta.push(`<a href="${esc(s.link)}" target="_blank" rel="noopener">Résa ↗</a>`);
@@ -303,8 +289,8 @@ function renderStays(){const wrap=document.getElementById("stays"),list=sortedSt
     return`<div class="stay ${s.status}"><div class="stay-top"><div>
       <div class="stay-dates"><b>${fmt(s.checkin)}</b> → <b>${fmt(s.checkout)}</b><span class="nights-tag">${n} nuit${n>1?"s":""}</span></div>
       <div class="stay-name">${esc(s.name)||"(sans nom)"}</div>
-      <div class="stay-place">${esc(s.place)||""}${s.address?(s.place?" · ":"")+esc(s.address):""}</div>
-      </div><span class="badge ${s.status}">${statusLabel(s.status)}</span></div>
+      <div class="stay-place">${esc(s.place)||""}${s.address?(s.place?" · ":"")+esc(s.address):""}</div></div>
+      <span class="badge ${s.status}">${statusLabel(s.status)}</span></div>
       <div class="stay-meta">${meta.join("")}</div>${s.notes?`<div class="stay-notes">${esc(s.notes)}</div>`:""}
       <div class="stay-actions"><button onclick="editStay('${s.id}')">✎ Modifier</button><button class="del" onclick="delStay('${s.id}')">✕ Supprimer</button></div></div>`;
   }).join("");
@@ -314,65 +300,88 @@ function ticketsHTML(f){const chips=(f.files||[]).map(x=>`<span class="file-chip
 function renderFlights(){const wrap=document.getElementById("flights"),list=sortedFlights();
   document.getElementById("flight-count").textContent=list.length+(list.length>1?" vols":" vol");
   if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun vol enregistré.</b><br>Touche « + Vol » puis joins les billets.</div>`;return;}
-  wrap.innerHTML=list.map(f=>{const meta=[];
+  wrap.innerHTML=list.map(f=>{const meta=[];const pc=phaseChip(f);if(pc)meta.push(pc);
     if(f.flightno)meta.push(esc(f.flightno));if(f.airline)meta.push(esc(f.airline));if(f.pax)meta.push("👥 "+esc(f.pax));
     if(f.cost>0)meta.push(`<span class="stay-cost">${f.payer?`<span class="dot ${f.payer}"></span>`:""}${money(f.cost,f.costcur||"eur")}</span>`);
     return`<div class="flight"><div class="stay-top"><div>
       <div class="stay-dates">${f.date?`<b>${fmtLong(f.date)}</b>`:"date ?"}</div>
       <div class="stay-name">${esc(f.label)||"(vol)"}</div>
-      <div class="stay-meta">${meta.join(' <span style="opacity:.4">·</span> ')}</div>
-      </div><span class="badge sky">✈ Vol</span></div>
+      <div class="stay-meta">${meta.join(' <span style="opacity:.4">·</span> ')}</div></div>
+      <span class="badge sky">✈ Vol</span></div>
       ${f.notes?`<div class="stay-notes">${esc(f.notes)}</div>`:""}${ticketsHTML(f)}
       <div class="stay-actions"><button onclick="editFlight('${f.id}')">✎ Modifier</button><button class="del" onclick="delFlight('${f.id}')">✕ Supprimer</button></div></div>`;
   }).join("");
 }
-function budget(){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?(a/rate):a;let paid={c1:0,c2:0},unassigned=0,prepaid=0,onsite=0;
-  DATA.stays.forEach(s=>{if(s.cost>0){const v=e(s.cost,s.costcur||"eur");prepaid+=v;s.payer?paid[s.payer]+=v:unassigned+=v;}});
-  DATA.flights.forEach(f=>{if(f.cost>0){const v=e(f.cost,f.costcur||"eur");prepaid+=v;f.payer?paid[f.payer]+=v:unassigned+=v;}});
-  DATA.expenses.forEach(x=>{const v=e(x.amount,x.cur);x.cat==="onsite"?onsite+=v:prepaid+=v;x.payer?paid[x.payer]+=v:unassigned+=v;});
+
+function budgetPhase(phase){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?(a/rate):a;let paid={c1:0,c2:0},unassigned=0,prepaid=0,onsite=0;
+  const inc=(cost,cur,payer,cat)=>{const v=e(cost,cur);if(cat==="onsite")onsite+=v;else prepaid+=v;if(payer)paid[payer]+=v;else unassigned+=v;};
+  DATA.stays.forEach(s=>{if(phaseOf(s)===phase&&s.cost>0)inc(s.cost,s.costcur||"eur",s.payer,"prepaid");});
+  DATA.flights.forEach(f=>{if(phaseOf(f)===phase&&f.cost>0)inc(f.cost,f.costcur||"eur",f.payer,"prepaid");});
+  DATA.expenses.forEach(x=>{if(phaseOf(x)===phase)inc(x.amount,x.cur,x.payer,x.cat);});
   const total=prepaid+onsite;return{rate,total,share:total/2,paid,unassigned,prepaid,onsite};}
-function renderBudget(){const b=budget(),el=document.getElementById("budget-summary");
+
+function renderBudgetCommon(){const b=budgetPhase("commun"),el=document.getElementById("budget-common");
   const p1=b.total?b.paid.c1/b.total*100:0,p2=b.total?b.paid.c2/b.total*100:0,net1=b.paid.c1-b.share;let settle;
   if(b.total===0)settle=`<div class="settle bal">Ajoute des montants pour voir la répartition 50/50.</div>`;
   else if(Math.abs(net1)<1)settle=`<div class="settle bal">✓ Comptes équilibrés — ~${eur(b.share)} par couple.</div>`;
   else if(net1>0)settle=`<div class="settle owe"><b>Samy & Liza</b> doivent <b>${eur(net1)}</b> à <b>Vinod & Shanez</b><br><span style="font-weight:500;opacity:.8">part = ${eur(b.share)} / couple</span></div>`;
   else settle=`<div class="settle owe"><b>Vinod & Shanez</b> doivent <b>${eur(-net1)}</b> à <b>Samy & Liza</b><br><span style="font-weight:500;opacity:.8">part = ${eur(b.share)} / couple</span></div>`;
-  el.innerHTML=`<div class="budget-total"><span class="big">${eur(b.total)}</span><span class="lbl">total dépensé</span></div>
+  el.innerHTML=`<div class="budget-total"><span class="big">${eur(b.total)}</span><span class="lbl">voyage commun</span></div>
     <div class="split-bars"><i class="b1" style="width:${p1}%"></i><i class="b2" style="width:${p2}%"></i></div>
     <div class="couple-rows"><div class="couple-row"><span class="nm"><span class="dot c1"></span>Vinod & Shanez</span><span class="amt">${eur(b.paid.c1)}</span></div><div class="couple-row"><span class="nm"><span class="dot c2"></span>Samy & Liza</span><span class="amt">${eur(b.paid.c2)}</span></div></div>
     ${b.unassigned>0?`<div class="unassigned">⚠ ${eur(b.unassigned)} sans couple attribué.</div>`:""}${settle}
     <div class="cat-split"><div class="cat-box"><div class="k">Payé d'avance</div><div class="v">${eur(b.prepaid)}</div></div><div class="cat-box"><div class="k">Sur place</div><div class="v">${eur(b.onsite)}</div></div></div>
     <div class="rate-row">Taux : 1 € = <input type="number" id="rate-input" value="${b.rate}"> Rp <span style="font-size:11px">(Rp convertis en €)</span></div>`;
-  document.getElementById("rate-input").onchange=e=>{const v=parseFloat(e.target.value);if(v>0){DATA.rate=v;save();renderBudget();renderStays();renderFlights();}};
+  document.getElementById("rate-input").onchange=e=>{const v=parseFloat(e.target.value);if(v>0){DATA.rate=v;save();renderAll();}};
+}
+function renderBudgetSL(){const b=budgetPhase("sl"),el=document.getElementById("budget-sl");
+  if(b.total===0){el.innerHTML=`<div class="budget-total"><span class="big">${eur(0)}</span><span class="lbl">Samy & Liza · 1–9 août</span></div>
+    <div style="font-size:13px;color:var(--muted);margin-top:8px">Ajoute ici leurs logements, vols et dépenses du 1ᵉʳ au 9 août (onglet « Samy & Liza » dans les formulaires). <b>Non inclus dans le 50/50.</b></div>`;return;}
+  const adv=b.paid.c1;
+  el.innerHTML=`<div class="budget-total"><span class="big">${eur(b.total)}</span><span class="lbl">à la charge de Samy & Liza</span></div>
+    <div class="cat-split"><div class="cat-box"><div class="k">Payé d'avance</div><div class="v">${eur(b.prepaid)}</div></div><div class="cat-box"><div class="k">Sur place</div><div class="v">${eur(b.onsite)}</div></div></div>
+    ${adv>0?`<div class="settle owe" style="margin-top:12px">À rembourser à <b>Vinod & Shanez</b> : <b>${eur(adv)}</b><br><span style="font-weight:500;opacity:.8">montant avancé pour la prolongation</span></div>`:""}
+    <div style="font-size:11.5px;color:var(--muted);margin-top:10px">Séparé du voyage commun — <b>pas de partage 50/50</b>.</div>`;
 }
 function renderExpenses(){const wrap=document.getElementById("expenses");const list=[...DATA.expenses].sort((a,b)=>(a.date||"")<(b.date||"")?1:-1);
   if(!list.length){wrap.innerHTML=`<div class="empty">Aucune dépense (hors logements & vols).<br>Voiture, activités, restos, sur-place…</div>`;return;}
   wrap.innerHTML=list.map(x=>`<div class="exp ${x.payer||""}"><div class="exp-top"><div><div class="exp-label">${esc(x.label)||"(sans intitulé)"}</div>
-    <div class="exp-sub"><span class="tag ${x.cat==="onsite"?"on":"pre"}">${x.cat==="onsite"?"Sur place":"Payé d'avance"}</span>${x.payer?`<span><span class="dot ${x.payer}"></span> ${esc(COUPLES[x.payer])}</span>`:""}${x.date?`<span>${fmt(x.date)}</span>`:""}</div></div>
+    <div class="exp-sub">${phaseChip(x)}<span class="tag ${x.cat==="onsite"?"on":"pre"}">${x.cat==="onsite"?"Sur place":"Payé d'avance"}</span>${x.payer?`<span><span class="dot ${x.payer}"></span> ${esc(COUPLES[x.payer])}</span>`:""}${x.date?`<span>${fmt(x.date)}</span>`:""}</div></div>
     <div class="exp-amt">${money(x.amount,x.cur)}</div></div>
     <div class="exp-actions"><button onclick="editExp('${x.id}')">✎ Modifier</button><button class="del" onclick="delExp('${x.id}')">✕ Supprimer</button></div></div>`).join("");
 }
-function renderItinerary(){const wrap=document.getElementById("itinerary"),list=sortedStays();
-  if(!list.length){wrap.innerHTML=`<div class="empty">L'itinéraire s'affichera dès qu'une étape est ajoutée.</div>`;return;}
-  let html=`<div class="tl">`;
-  if(list[0].checkin>TRIP_START)html+=gapNode(TRIP_START,list[0].checkin,diffN(TRIP_START,list[0].checkin),"Avant la 1ʳᵉ étape");
-  list.forEach((s,i)=>{const n=diffN(s.checkin,s.checkout);
-    html+=`<div class="tl-node"><div class="tl-when">${fmtLong(s.checkin)} → ${fmtLong(s.checkout)} · ${n} nuit${n>1?"s":""}</div><div class="tl-what">${esc(s.name)||"(sans nom)"} <span style="font-weight:400;font-size:13px;color:var(--muted)">— ${statusLabel(s.status)}</span></div><div class="tl-where">${esc(s.place)||esc(s.address)||""}</div></div>`;
-    const nx=list[i+1];if(nx){if(nx.checkin>s.checkout)html+=gapNode(s.checkout,nx.checkin,diffN(s.checkout,nx.checkin),"Trou — où dort-on ?");else if(nx.checkin<s.checkout)html+=`<div class="tl-node"><div class="overlap">⚠ Chevauchement : ${esc(s.name)} et ${esc(nx.name)}</div></div>`;}
-  });
-  const last=list[list.length-1];if(last.checkout<TRIP_END)html+=gapNode(last.checkout,TRIP_END,diffN(last.checkout,TRIP_END),"Après la dernière étape");
-  html+=`</div>`;wrap.innerHTML=html;
-}
-function gapNode(from,to,n,title){return`<div class="tl-node gap"><div class="tl-gap"><div class="tl-when">${fmtLong(from)} → ${fmtLong(to)}</div><div class="tl-what">${title} · ${n} nuit${n>1?"s":""}</div><div class="tl-where">Aucun logement renseigné.</div></div></div>`;}
-function renderAll(){renderHeader();renderStays();renderFlights();renderBudget();renderExpenses();renderItinerary();
-  document.getElementById("foot").innerHTML="Données et billets synchronisés via Google (Sheet + Drive).<br>Tout le monde voit la même chose. Touche ⟳ pour rafraîchir.";}
 
-/* ---------- forms ---------- */
+function gapNode(from,to,n,title){return`<div class="tl-node gap"><div class="tl-gap"><div class="tl-when">${fmtLong(from)} → ${fmtLong(to)}</div><div class="tl-what">${title} · ${n} nuit${n>1?"s":""}</div><div class="tl-where">Aucun logement renseigné.</div></div></div>`;}
+function buildTimeline(phase,start,end,emptyMsg,withDepart){
+  const list=sortedStays().filter(s=>phaseOf(s)===phase);
+  if(!list.length)return`<div class="empty">${emptyMsg}</div>`;
+  const nodes=[];
+  if(list[0].checkin>start)nodes.push({key:start,html:gapNode(start,list[0].checkin,diffN(start,list[0].checkin),"Avant la 1ʳᵉ étape")});
+  list.forEach((s,i)=>{const n=diffN(s.checkin,s.checkout);
+    nodes.push({key:s.checkin,html:`<div class="tl-node"><div class="tl-when">${fmtLong(s.checkin)} → ${fmtLong(s.checkout)} · ${n} nuit${n>1?"s":""}</div><div class="tl-what">${esc(s.name)||"(sans nom)"} <span style="font-weight:400;font-size:13px;color:var(--muted)">— ${statusLabel(s.status)}</span></div><div class="tl-where">${esc(s.place)||esc(s.address)||""}</div></div>`});
+    const nx=list[i+1];if(nx){if(nx.checkin>s.checkout)nodes.push({key:s.checkout,html:gapNode(s.checkout,nx.checkin,diffN(s.checkout,nx.checkin),"Trou — où dort-on ?")});else if(nx.checkin<s.checkout)nodes.push({key:nx.checkin,html:`<div class="tl-node"><div class="overlap">⚠ Chevauchement : ${esc(s.name)} et ${esc(nx.name)}</div></div>`});}
+  });
+  const last=list[list.length-1];if(last.checkout<end)nodes.push({key:last.checkout,html:gapNode(last.checkout,end,diffN(last.checkout,end),"Après la dernière étape")});
+  if(withDepart)nodes.push({key:end,html:`<div class="tl-node depart"><div class="tl-depart"><div class="tl-when">${fmtLong(end)}</div><div class="tl-what">✈ Retour Vinod, Shanez, Ameya &amp; Leyna</div><div class="tl-where">Samy & Liza continuent — voir prolongation ci-dessous</div></div></div>`});
+  nodes.sort((a,b)=>a.key<b.key?-1:a.key>b.key?1:0);
+  return`<div class="tl">`+nodes.map(n=>n.html).join("")+`</div>`;
+}
+function renderItinerary(){
+  document.getElementById("itinerary").innerHTML=buildTimeline("commun",TRIP_START,COMMON_END,"L'itinéraire commun s'affichera dès qu'une étape est ajoutée.",true);
+  document.getElementById("itinerary-sl").innerHTML=buildTimeline("sl",COMMON_END,SL_END,"Aucune étape pour la prolongation Samy & Liza (1–9 août).",false);
+}
+
+function renderAll(){renderHeader();renderStays();renderFlights();renderBudgetCommon();renderBudgetSL();renderExpenses();renderItinerary();
+  document.getElementById("foot").innerHTML="Données et billets synchronisés via Google (Sheet + Drive).<br>Voyage commun et prolongation Samy & Liza comptés séparément. Touche ⟳ pour rafraîchir.";}
+
+/* logement form */
+function applyStayBounds(){const p=document.querySelector('input[name="sphase"]:checked').value;const ci=document.getElementById("f-checkin"),co=document.getElementById("f-checkout");const s=p==="sl"?COMMON_END:TRIP_START,e=p==="sl"?SL_END:COMMON_END;ci.min=co.min=s;ci.max=co.max=e;}
 function fillTravelers(){document.getElementById("f-bookedby").innerHTML=`<option value="">—</option>`+DATA.travelers.map(t=>`<option>${esc(t)}</option>`).join("");}
 function openForm(s){fillTravelers();document.getElementById("flight-panel").classList.remove("open");
   document.getElementById("form-title").textContent=s?"Modifier l'étape":"Nouvelle étape";document.getElementById("f-id").value=s?s.id:"";
-  const ci=document.getElementById("f-checkin"),co=document.getElementById("f-checkout");ci.min=co.min=TRIP_START;ci.max=co.max=TRIP_END;
-  ci.value=s?s.checkin:"";co.value=s?s.checkout:"";document.getElementById("f-name").value=s?s.name:"";document.getElementById("f-place").value=s?s.place:"";document.getElementById("f-address").value=s?s.address:"";
+  document.querySelectorAll('input[name="sphase"]').forEach(r=>r.checked=(r.value===phaseOf(s)));applyStayBounds();
+  document.getElementById("f-checkin").value=s?s.checkin:"";document.getElementById("f-checkout").value=s?s.checkout:"";
+  document.getElementById("f-name").value=s?s.name:"";document.getElementById("f-place").value=s?s.place:"";document.getElementById("f-address").value=s?s.address:"";
   document.getElementById("f-cost").value=s&&s.cost?s.cost:"";document.getElementById("f-costcur").value=s?s.costcur||"eur":"eur";
   document.querySelectorAll('input[name="spayer"]').forEach(r=>r.checked=(s&&r.value===s.payer));
   document.getElementById("f-bookedby").value=s?s.bookedby||"":"";document.getElementById("f-link").value=s?s.link||"":"";document.getElementById("f-notes").value=s?s.notes||"":"";
@@ -383,12 +392,15 @@ window.editStay=id=>{const s=DATA.stays.find(x=>x.id===id);if(s)openForm(s);};
 window.delStay=id=>{const s=DATA.stays.find(x=>x.id===id);if(confirm("Supprimer « "+(s?s.name:"")+" » ?")){DATA.stays=DATA.stays.filter(x=>x.id!==id);save();renderAll();}};
 async function saveStay(){const ci=document.getElementById("f-checkin").value,co=document.getElementById("f-checkout").value,name=document.getElementById("f-name").value.trim();
   if(!ci||!co){alert("Indique arrivée et départ.");return;}if(co<=ci){alert("Le départ doit être après l'arrivée.");return;}if(!name){alert("Donne un nom au logement.");return;}
-  const pe=document.querySelector('input[name="spayer"]:checked');
-  const rec={id:document.getElementById("f-id").value||uid(),checkin:ci,checkout:co,name,place:document.getElementById("f-place").value.trim(),address:document.getElementById("f-address").value.trim(),cost:parseFloat(document.getElementById("f-cost").value)||0,costcur:document.getElementById("f-costcur").value,payer:pe?pe.value:"",bookedby:document.getElementById("f-bookedby").value,link:document.getElementById("f-link").value.trim(),notes:document.getElementById("f-notes").value.trim(),status:document.querySelector('input[name="status"]:checked').value};
+  const pe=document.querySelector('input[name="spayer"]:checked');const phase=document.querySelector('input[name="sphase"]:checked').value;
+  const rec={id:document.getElementById("f-id").value||uid(),phase,checkin:ci,checkout:co,name,place:document.getElementById("f-place").value.trim(),address:document.getElementById("f-address").value.trim(),cost:parseFloat(document.getElementById("f-cost").value)||0,costcur:document.getElementById("f-costcur").value,payer:pe?pe.value:"",bookedby:document.getElementById("f-bookedby").value,link:document.getElementById("f-link").value.trim(),notes:document.getElementById("f-notes").value.trim(),status:document.querySelector('input[name="status"]:checked').value};
   const i=DATA.stays.findIndex(x=>x.id===rec.id);i>=0?DATA.stays[i]=rec:DATA.stays.push(rec);await save();closeForm();renderAll();}
 
+/* vol form */
+function applyFlightBounds(){const p=document.querySelector('input[name="vphase"]:checked').value;const d=document.getElementById("v-date");d.min=p==="sl"?COMMON_END:TRIP_START;d.max=p==="sl"?SL_END:COMMON_END;}
 function openFlight(f){document.getElementById("form-panel").classList.remove("open");
   document.getElementById("flight-title").textContent=f?"Modifier le vol":"Nouveau vol";document.getElementById("v-id").value=f?f.id:"";
+  document.querySelectorAll('input[name="vphase"]').forEach(r=>r.checked=(r.value===phaseOf(f)));applyFlightBounds();
   document.getElementById("v-label").value=f?f.label:"";document.getElementById("v-date").value=f?f.date||"":"";document.getElementById("v-flightno").value=f?f.flightno||"":"";
   document.getElementById("v-airline").value=f?f.airline||"":"";document.getElementById("v-pax").value=f?f.pax||"":"";
   document.getElementById("v-cost").value=f&&f.cost?f.cost:"";document.getElementById("v-costcur").value=f?f.costcur||"eur":"eur";
@@ -398,25 +410,25 @@ function closeFlight(){document.getElementById("flight-panel").classList.remove(
 window.editFlight=id=>{const f=DATA.flights.find(x=>x.id===id);if(f)openFlight(f);};
 window.delFlight=async id=>{const f=DATA.flights.find(x=>x.id===id);if(!confirm("Supprimer ce vol et ses billets ?"))return;if(f&&f.files)for(const x of f.files){try{await api({action:"delete",id:x.id});}catch(e){}}DATA.flights=DATA.flights.filter(x=>x.id!==id);await save();renderAll();};
 async function saveFlight(){const label=document.getElementById("v-label").value.trim();if(!label){alert("Indique le trajet du vol.");return;}
-  const pe=document.querySelector('input[name="vpayer"]:checked');const id=document.getElementById("v-id").value||uid();const ex=DATA.flights.find(x=>x.id===id);
-  const rec={id,label,date:document.getElementById("v-date").value,flightno:document.getElementById("v-flightno").value.trim(),airline:document.getElementById("v-airline").value.trim(),pax:document.getElementById("v-pax").value.trim(),cost:parseFloat(document.getElementById("v-cost").value)||0,costcur:document.getElementById("v-costcur").value,payer:pe?pe.value:"",notes:document.getElementById("v-notes").value.trim(),files:ex?ex.files||[]:[]};
+  const pe=document.querySelector('input[name="vpayer"]:checked');const phase=document.querySelector('input[name="vphase"]:checked').value;const id=document.getElementById("v-id").value||uid();const ex=DATA.flights.find(x=>x.id===id);
+  const rec={id,phase,label,date:document.getElementById("v-date").value,flightno:document.getElementById("v-flightno").value.trim(),airline:document.getElementById("v-airline").value.trim(),pax:document.getElementById("v-pax").value.trim(),cost:parseFloat(document.getElementById("v-cost").value)||0,costcur:document.getElementById("v-costcur").value,payer:pe?pe.value:"",notes:document.getElementById("v-notes").value.trim(),files:ex?ex.files||[]:[]};
   const i=DATA.flights.findIndex(x=>x.id===id);i>=0?DATA.flights[i]=rec:DATA.flights.push(rec);await save();closeFlight();renderAll();}
 
-/* billets via Drive */
+/* billets */
 window.attachTo=id=>{attachTarget=id;document.getElementById("ticket-file").click();};
 document.getElementById("ticket-file").onchange=async e=>{const files=[...e.target.files];e.target.value="";const f=DATA.flights.find(x=>x.id===attachTarget);if(!f||!files.length)return;
   for(const file of files){if(file.size>10*1048576){alert(`"${file.name}" trop volumineux (max 10 Mo).`);continue;}
-    try{setSync("busy");const dataUrl=await readAsDataURL(file);const b64=dataUrl.split(",")[1];
-      const r=await api({action:"upload",name:file.name,mime:file.type||"application/octet-stream",size:file.size,dataB64:b64});
-      if(r.ok){f.files=f.files||[];f.files.push({id:r.id,name:r.name||file.name,type:file.type,size:file.size});}else{alert("Échec : "+(r.error||""));}
-    }catch(err){setSync("err");alert("Échec de l'envoi de "+file.name);}}
+    try{setSync("busy");const dataUrl=await readAsDataURL(file);const b64=dataUrl.split(",")[1];const r=await api({action:"upload",name:file.name,mime:file.type||"application/octet-stream",size:file.size,dataB64:b64});
+      if(r.ok){f.files=f.files||[];f.files.push({id:r.id,name:r.name||file.name,type:file.type,size:file.size});}else alert("Échec : "+(r.error||""));}
+    catch(err){setSync("err");alert("Échec de l'envoi de "+file.name);}}
   await save();renderAll();};
 window.openFile=async id=>{try{setSync("busy");const r=await api({action:"getfile",id});setSync("ok");if(!r.ok||!r.dataB64){alert("Billet introuvable.");return;}const u=URL.createObjectURL(b64toBlob(r.dataB64,r.mime));window.open(u,"_blank");setTimeout(()=>URL.revokeObjectURL(u),60000);}catch(e){setSync("err");alert("Erreur de connexion.");}};
 window.dlFile=async(id,name)=>{try{setSync("busy");const r=await api({action:"getfile",id});setSync("ok");if(!r.ok||!r.dataB64)return;const a=document.createElement("a");a.href=URL.createObjectURL(b64toBlob(r.dataB64,r.mime));a.download=name||r.name||"billet";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),60000);}catch(e){setSync("err");}};
 window.rmFile=async(fid,xid)=>{if(!confirm("Supprimer ce billet ?"))return;try{setSync("busy");await api({action:"delete",id:xid});}catch(e){}const f=DATA.flights.find(x=>x.id===fid);if(f)f.files=(f.files||[]).filter(x=>x.id!==xid);await save();renderAll();};
 
-/* dépense */
+/* dépense form */
 function openExp(x){document.getElementById("exp-title").textContent=x?"Modifier la dépense":"Nouvelle dépense";document.getElementById("e-id").value=x?x.id:"";
+  document.querySelectorAll('input[name="ephase"]').forEach(r=>r.checked=(r.value===phaseOf(x)));
   document.getElementById("e-label").value=x?x.label:"";document.getElementById("e-amount").value=x&&x.amount?x.amount:"";document.getElementById("e-cur").value=x?x.cur||"eur":"eur";
   document.querySelectorAll('input[name="ecat"]').forEach(r=>r.checked=(r.value===(x?x.cat:"prepaid")));document.querySelectorAll('input[name="epayer"]').forEach(r=>r.checked=(r.value===(x?x.payer:"c1")));
   document.getElementById("e-date").value=x?x.date||"":"";const p=document.getElementById("exp-panel");p.classList.add("open");p.scrollIntoView({behavior:"smooth",block:"start"});}
@@ -425,14 +437,12 @@ window.editExp=id=>{const x=DATA.expenses.find(e=>e.id===id);if(x)openExp(x);};
 window.delExp=id=>{const x=DATA.expenses.find(e=>e.id===id);if(confirm("Supprimer « "+(x?x.label:"")+" » ?")){DATA.expenses=DATA.expenses.filter(e=>e.id!==id);save();renderAll();}};
 async function saveExp(){const label=document.getElementById("e-label").value.trim(),amount=parseFloat(document.getElementById("e-amount").value)||0;
   if(!label){alert("Donne un intitulé.");return;}if(amount<=0){alert("Indique un montant.");return;}
-  const rec={id:document.getElementById("e-id").value||uid(),label,amount,cur:document.getElementById("e-cur").value,cat:document.querySelector('input[name="ecat"]:checked').value,payer:document.querySelector('input[name="epayer"]:checked').value,date:document.getElementById("e-date").value};
+  const rec={id:document.getElementById("e-id").value||uid(),phase:document.querySelector('input[name="ephase"]:checked').value,label,amount,cur:document.getElementById("e-cur").value,cat:document.querySelector('input[name="ecat"]:checked').value,payer:document.querySelector('input[name="epayer"]:checked').value,date:document.getElementById("e-date").value};
   const i=DATA.expenses.findIndex(e=>e.id===rec.id);i>=0?DATA.expenses[i]=rec:DATA.expenses.push(rec);await save();closeExp();renderAll();}
 
-/* export / import (sauvegarde des infos ; les billets restent dans Drive) */
 function doExport(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="indonesie-2026-backup.json";a.click();URL.revokeObjectURL(a.href);}
 function doImport(file){const fr=new FileReader();fr.onload=async()=>{try{const d=JSON.parse(fr.result);if(!d||!Array.isArray(d.stays))throw 0;DATA=normalize(d);await save();renderAll();alert("Import réussi.");}catch(e){alert("Fichier invalide.");}};fr.readAsText(file);}
 
-/* events */
 document.getElementById("add-btn").onclick=()=>openForm(null);
 document.getElementById("cancel-btn").onclick=closeForm;
 document.getElementById("save-btn").onclick=saveStay;
@@ -446,16 +456,13 @@ document.getElementById("sync").onclick=refresh;
 document.getElementById("export-btn").onclick=doExport;
 document.getElementById("import-btn").onclick=()=>document.getElementById("import-file").click();
 document.getElementById("import-file").onchange=e=>{if(e.target.files[0])doImport(e.target.files[0]);e.target.value="";};
-document.getElementById("f-checkin").onchange=e=>{const co=document.getElementById("f-checkout");co.min=e.target.value;if(co.value&&co.value<=e.target.value)co.value=addDays(e.target.value,1);};
+document.querySelectorAll('input[name="sphase"]').forEach(r=>r.addEventListener("change",applyStayBounds));
+document.querySelectorAll('input[name="vphase"]').forEach(r=>r.addEventListener("change",applyFlightBounds));
+document.getElementById("f-checkin").onchange=e=>{const co=document.getElementById("f-checkout");if(e.target.value>co.min)co.min=e.target.value;if(co.value&&co.value<=e.target.value)co.value=addDays(e.target.value,1);};
 window.addEventListener("focus",()=>{if(Date.now()-lastRefresh>8000)refresh();});
 
-/* init */
 function configured(){return /^https:\/\/script\.google\.com\//.test(API_URL);}
-(async()=>{
-  if(!configured()){document.getElementById("setup").style.display="block";return;}
-  document.getElementById("app").style.display="block";
-  await load();renderAll();
-})();
+(async()=>{if(!configured()){document.getElementById("setup").style.display="block";return;}document.getElementById("app").style.display="block";await load();renderAll();})();
 </script>
 </body>
 </html>
