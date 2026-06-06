@@ -6,8 +6,6 @@
 <title>Indonésie 2026 — Logements, Vols &amp; Budget</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{--bg:#FBF6EC;--ink:#16241F;--muted:#5C6B62;--jade:#0E5C4A;--jade-2:#0A4034;--jade-soft:#2E7D6B;
     --coral:#E2553A;--gold:#D99A30;--sand:#EFE6D4;--line:#E2D9C6;--card:#FFFFFF;
@@ -38,6 +36,7 @@
   .btn-main{flex:1;min-width:120px;background:var(--coral);color:#fff;padding:13px 16px;font-size:15px;box-shadow:0 8px 18px -8px rgba(226,85,58,.7)}
   .btn-main:active{transform:translateY(1px)}.btn-sky{background:var(--sky);box-shadow:0 8px 18px -8px rgba(31,111,168,.7)}
   .btn-ghost{background:#fff;color:var(--jade);border:1.5px solid var(--line);padding:13px 14px;font-size:13.5px}.btn-ghost:active{background:var(--sand)}
+  .btn-sm{font-size:13px;padding:9px 12px;background:var(--sand);color:var(--jade);border:1px solid var(--line)}
   #sync{font-size:12px;font-weight:700;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap}
   #sync.ok{color:var(--jade);border-color:#CFE6DB;background:#F1F8F4}#sync.err{color:#B23A22;border-color:#F2C9BE;background:#FBE9E3}#sync.busy{color:var(--sky);border-color:#CFE0EE;background:#F1F7FC}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:22px;box-shadow:var(--shadow);display:none}
@@ -69,16 +68,12 @@
   .badge{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:4px 9px;border-radius:999px;white-space:nowrap;flex-shrink:0}
   .badge.ok{background:#DDEFE4;color:var(--ok)}.badge.todo{background:#FBE2DB;color:#B23A22}.badge.opt{background:#F7EBCF;color:#8E6410}.badge.sky{background:#E3EFF8;color:var(--sky)}
   .slp{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:6px;background:#EAF1FA;color:#1F4E82}
+  .forwho{font-size:11px;font-weight:700;color:#1F4E82;background:#EAF1FA;padding:2px 7px;border-radius:6px}
+  .whohint{font-size:11px;color:var(--muted);margin-top:7px}
   .whoselect{display:flex;flex-wrap:wrap;gap:6px}
   .whochip{font-family:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:#FCFAF4;color:var(--muted);cursor:pointer}
   .whochip.on{background:var(--jade);color:#fff;border-color:transparent}
   .whochip.allbtn{border-style:dashed;color:var(--jade);background:#fff}
-  .forwho{font-size:11px;font-weight:700;color:#1F4E82;background:#EAF1FA;padding:2px 7px;border-radius:6px}
-  .whohint{font-size:11px;color:var(--muted);margin-top:7px}
-  .map-box{height:260px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:8px;background:#E9EEF0}
-  .mapnote{font-size:12px;color:var(--muted);margin:0 2px 14px}
-  .maps-open{font-size:12.5px;font-weight:700;color:var(--jade);text-decoration:none;background:var(--sand);padding:4px 10px;border-radius:999px}
-  .leaflet-container{font-family:inherit}
   .stay-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12.5px;color:var(--muted);align-items:center}
   .stay-meta a{color:var(--jade);text-decoration:none;font-weight:700}.stay-meta .who b{color:var(--ink)}
   .stay-cost{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--ink)}
@@ -126,10 +121,13 @@
   .tl-node.depart::before{background:var(--gold);box-shadow:0 0 0 1.5px var(--gold)}
   .tl-depart{background:#FBF1DA;border:1px dashed var(--gold);border-radius:12px;padding:10px 13px}
   .tl-depart .tl-when{color:#8E6410}.tl-depart .tl-what{color:#8E6410;font-size:15px}.tl-depart .tl-where{color:#9A7320}
+  .tl-flight{background:#E3EFF8;border:1px dashed var(--sky);border-radius:12px;padding:10px 13px}
+  .tl-flight .tl-when{color:#1F4E82}.tl-flight .tl-what{color:#1F4E82;font-size:15px}.tl-flight .tl-where{color:#2E6FB0}
   .overlap{color:var(--coral);font-weight:700;font-size:11.5px;margin-top:2px}
   .empty{text-align:center;color:var(--muted);padding:26px 18px;border:1.5px dashed var(--line);border-radius:16px;font-size:14px}.empty b{color:var(--ink)}
   .sl-block{background:#F3F8FC;border:1px solid #DBE7F2;border-radius:22px;padding:18px 16px 6px;margin-top:30px}
   .sl-block .sec-h h2{color:#1F4E82}.sl-block .sec-h .count{background:#E1ECF6;color:#1F4E82}
+  .maps-link{display:inline-block;font-size:12.5px;font-weight:700;color:var(--jade);text-decoration:none;background:var(--sand);padding:6px 12px;border-radius:999px;border:1px solid var(--line)}
   footer{text-align:center;font-size:11.5px;color:var(--muted);margin-top:28px;line-height:1.6}
   .hidden-file{display:none}
   #setup{display:none;max-width:560px;margin:60px auto;padding:0 18px}
@@ -175,7 +173,7 @@
     <div class="field"><label>Partie du voyage</label><div class="seg"><label class="s-com"><input type="radio" name="sphase" value="commun" checked><span>Commun (29/6–1/8)</span></label><label class="s-sl"><input type="radio" name="sphase" value="sl"><span>Samy &amp; Liza (1–9/8)</span></label></div></div>
     <div class="field"><label>Type d'étape</label><div class="seg"><label class="s-hotel"><input type="radio" name="stype" value="hotel" checked><span>🏨 Hôtel</span></label><label class="s-cruise"><input type="radio" name="stype" value="cruise"><span>⛴️ Croisière</span></label></div></div>
     <div class="grid2"><div class="field"><label>Arrivée</label><input type="date" id="f-checkin"></div><div class="field"><label>Départ</label><input type="date" id="f-checkout"></div></div>
-    <div class="field"><label>Logement</label><input type="text" id="f-name" placeholder="ex. Villa Kayu, The Bali Dream…"></div>
+    <div class="field"><label>Logement / Bateau</label><input type="text" id="f-name" placeholder="ex. Villa Kayu, The Bali Dream…"></div>
     <div class="field"><label>Lieu / zone</label><input type="text" id="f-place" placeholder="ex. Ubud, Bali"></div>
     <div class="field"><label>Adresse complète</label><input type="text" id="f-address" placeholder="ex. Jl. Raya Tegallalang No.5, Ubud"></div>
     <div class="grid2"><div class="field"><label>Montant payé</label><input type="number" inputmode="decimal" min="0" id="f-cost" placeholder="0"></div><div class="field"><label>Devise</label><select id="f-costcur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
@@ -201,10 +199,9 @@
     <p style="font-size:11.5px;color:var(--muted);margin:10px 0 0">Après enregistrement, joins les billets depuis la fiche du vol.</p>
   </div>
 
-  <section id="map-section">
-    <div class="sec-h"><h2>Itinéraire</h2><a id="maps-open" target="_blank" rel="noopener" class="maps-open">Ouvrir dans Maps ↗</a></div>
-    <div id="map" class="map-box"></div>
-    <p id="map-note" class="mapnote"></p>
+  <section id="itinerary-section">
+    <div class="sec-h"><h2>Itinéraire</h2><a id="maps-btn" class="maps-link" target="_blank" rel="noopener">📍 Google Maps</a></div>
+    <div style="display:flex;gap:8px;margin-bottom:16px"><button class="btn-sm" id="quick-hotel">+ Hôtel</button><button class="btn-sm" id="quick-flight">+ Vol</button></div>
     <div id="itinerary"></div>
   </section>
 
@@ -239,22 +236,16 @@
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzpO7Ri6IkKouz9smcDKMdwkfzY4fv08rO_3QZUzCqar99QR3Jbm68H1U3fyh7MkaoC1g/exec";
+const API_URL = "COLLE_ICI_TON_URL_APPS_SCRIPT";
 const TRIP_START="2026-06-29",COMMON_END="2026-08-01",SL_END="2026-08-09";
 const DEFAULT_TRAVELERS=["Vinod","Shanez","Ameya","Samy","Liza","Leyna"];
 const COUPLES={c1:"Vinod & Shanez",c2:"Samy & Liza"};
 const PERSON_COUPLE={Vinod:"c1",Shanez:"c1",Ameya:"c1",Samy:"c2",Liza:"c2",Leyna:"c2"};
 const NON_PAYING=["Ameya","Leyna"];
-function coupleOf(name){return PERSON_COUPLE[name]||"";}
-function renderWhoChips(containerId,selected){const el=document.getElementById(containerId);const sel=selected||[];
-  el.innerHTML=DATA.travelers.map(t=>`<button type="button" class="whochip${sel.includes(t)?" on":""}" data-name="${esc(t)}">${esc(t)}</button>`).join("")+`<button type="button" class="whochip allbtn">Tous</button>`;
-  el.querySelectorAll(".whochip").forEach(b=>b.onclick=()=>{if(b.classList.contains("allbtn")){el.querySelectorAll(".whochip:not(.allbtn)").forEach(x=>x.classList.add("on"));return;}b.classList.toggle("on");});}
-function readWho(containerId){const w=[...document.getElementById(containerId).querySelectorAll(".whochip.on:not(.allbtn)")].map(b=>b.dataset.name);return w.length?w:[...DATA.travelers];}
-function whoChipHTML(o){const w=o.who;if(!w||!w.length||w.length>=DATA.travelers.length)return"";return`<span class="forwho">Pour : ${w.map(esc).join(", ")}</span>`;}
 let DATA=defaults(),attachTarget=null,lastRefresh=0;
 
 function defaults(){return{travelers:[...DEFAULT_TRAVELERS],stays:[],flights:[],expenses:[],rate:17500,geo:{}};}
-function normalize(d){return{travelers:(d&&d.travelers&&d.travelers.length)?d.travelers:[...DEFAULT_TRAVELERS],stays:(Array.isArray(d&&d.stays)?d.stays:[]).map(s=>({...s,type:s.type||"hotel",files:s.files||[]})),flights:Array.isArray(d&&d.flights)?d.flights:[],expenses:Array.isArray(d&&d.expenses)?d.expenses:[],rate:(d&&d.rate)||17500,geo:(d&&d.geo)||{}};}
+function normalize(d){return{travelers:(d&&d.travelers&&d.travelers.length)?d.travelers:[...DEFAULT_TRAVELERS],stays:(Array.isArray(d&&d.stays)?d.stays:[]).map(s=>({...s,type:s.type||"hotel",files:s.files||[]})),flights:Array.isArray(d&&d.flights)?d.flights:[],expenses:Array.isArray(d&&d.expenses)?d.expenses:[],rate:(d&&d.rate)||17500,geo:(d&&d.geo)||{}};} 
 
 function toUTC(iso){const[y,m,d]=iso.split("-").map(Number);return Date.UTC(y,m-1,d);}
 function addDays(iso,n){const dt=new Date(toUTC(iso));dt.setUTCDate(dt.getUTCDate()+n);return dt.toISOString().slice(0,10);}
@@ -269,6 +260,12 @@ function money(a,cur){return Math.round(a).toLocaleString("fr-FR")+(cur==="idr"?
 function fSize(b){return b>1048576?(b/1048576).toFixed(1)+" Mo":Math.max(1,Math.round(b/1024))+" Ko";}
 function fIcon(t){return(t||"").startsWith("image")?"🖼️":(t||"").includes("pdf")?"📄":"📎";}
 function phaseOf(o){return(o&&o.phase)||"commun";}
+function coupleOf(name){return PERSON_COUPLE[name]||"";}
+function renderWhoChips(containerId,selected){const el=document.getElementById(containerId);const sel=selected||[];
+  el.innerHTML=DATA.travelers.map(t=>`<button type="button" class="whochip${sel.includes(t)?" on":""}" data-name="${esc(t)}">${esc(t)}</button>`).join("")+`<button type="button" class="whochip allbtn">Tous</button>`;
+  el.querySelectorAll(".whochip").forEach(b=>b.onclick=()=>{if(b.classList.contains("allbtn")){el.querySelectorAll(".whochip:not(.allbtn)").forEach(x=>x.classList.add("on"));return;}b.classList.toggle("on");});}
+function readWho(containerId){const w=[...document.getElementById(containerId).querySelectorAll(".whochip.on:not(.allbtn)")].map(b=>b.dataset.name);return w.length?w:[...DATA.travelers];}
+function whoChipHTML(o){const w=o.who;if(!w||!w.length||w.length>=DATA.travelers.length)return"";return`<span class="forwho">Pour : ${w.map(esc).join(", ")}</span>`;}
 
 function setSync(s){const el=document.getElementById("sync");el.className="";
   if(s==="ok"){el.classList.add("ok");el.textContent="✓ Synchronisé";}
@@ -289,6 +286,11 @@ function coveragePhase(phase,start,end){const all=nights(start,end);const cnt={}
 function groupRanges(list){const r=[];let i=0;while(i<list.length){let j=i;while(j+1<list.length&&addDays(list[j],1)===list[j+1])j++;r.push({from:list[i],to:addDays(list[j],1)});i=j+1;}return r;}
 function statusLabel(s){return s==="ok"?"Réservé":s==="opt"?"Option":"À réserver";}
 function mapsUrl(s){const q=(s.address&&s.address.trim())||[s.name,s.place].filter(Boolean).join(", ");return"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
+function mapsRouteUrl(){const stops=sortedStays().map(s=>{const a=(s.address||"").trim();if(a.length>4)return a;const b=[s.place,s.name].filter(Boolean).join(", ");return b?b+", Indonesia":"";}). filter(Boolean);if(!stops.length)return null;
+  if(stops.length===1)return"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(stops[0]);
+  const o=encodeURIComponent(stops[0]),d=encodeURIComponent(stops[stops.length-1]),wp=stops.slice(1,-1).map(encodeURIComponent).join("|");
+  return`https://www.google.com/maps/dir/?api=1&origin=${o}&destination=${d}${wp?`&waypoints=${wp}`:""}`;
+}
 
 function renderHeader(){
   document.getElementById("hd-range").textContent=fmt(TRIP_START)+" → "+fmt(COMMON_END);
@@ -306,12 +308,11 @@ function renderHeader(){
   else sg.innerHTML="🟦 Prolongation Samy &amp; Liza : "+sl.covered+" / "+sl.total+" nuits avec logement";
 }
 
-function phaseChip(o){return phaseOf(o)==="sl"?`<span class="slp">Samy &amp; Liza</span>`:"";}
 function renderStays(){const wrap=document.getElementById("stays"),list=sortedStays();
   document.getElementById("stay-count").textContent=list.length+(list.length>1?" étapes":" étape");
   if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun logement pour l'instant.</b><br>Touche « + Étape » pour répertorier où vous dormez ou voyagez.</div>`;return;}
-  wrap.innerHTML=list.map(s=>{const n=diffN(s.checkin,s.checkout);const meta=[];const icon=s.type==="cruise"?"⛴️":"🏨";const label=s.type==="cruise"?"Croisière":"Hôtel";
-    const pc=phaseChip(s);if(pc)meta.push(pc);const wc=whoChipHTML(s);if(wc)meta.push(wc);
+  wrap.innerHTML=list.map(s=>{const n=diffN(s.checkin,s.checkout);const icon=s.type==="cruise"?"⛴️":"🏨";
+    const meta=[];const pc=phaseChip(s);if(pc)meta.push(pc);const wc=whoChipHTML(s);if(wc)meta.push(wc);
     if(s.cost>0)meta.push(`<span class="stay-cost">${s.payer?`<span class="dot ${s.payer}"></span>`:""}${money(s.cost,s.costcur||"eur")}${s.payer?` · ${esc(COUPLES[s.payer])}`:""}</span>`);
     if(s.bookedby)meta.push(`<span class="who">résa <b>${esc(s.bookedby)}</b></span>`);
     if(s.link)meta.push(`<a href="${esc(s.link)}" target="_blank" rel="noopener">Résa ↗</a>`);
@@ -327,7 +328,7 @@ function renderStays(){const wrap=document.getElementById("stays"),list=sortedSt
   }).join("");
 }
 function ticketsHTML(f){const chips=(f.files||[]).map(x=>`<span class="file-chip"><span>${fIcon(x.type)}</span><span class="fn">${esc(x.name)}</span><span class="sz">${fSize(x.size)}</span><button onclick="openFile('${x.id}')">Ouvrir</button><button onclick="dlFile('${x.id}','${esc(x.name)}')">⤓</button><button class="x" onclick="rmFile('${f.id}','${x.id}')">✕</button></span>`).join("");
-  return`<div class="tickets">${chips}<button class="add-ticket" onclick="attachTo('${f.id}')">📎 ${(f.files&&f.files.length)?"Ajouter":"Joindre un billet"}</button></div>`;}
+  return`<div class="tickets">${chips}<button class="add-ticket" onclick="attachTo('${f.id}')">📎 ${(f.files&&f.files.length)?"Ajouter":"Ajouter un document"}</button></div>`;}
 function renderFlights(){const wrap=document.getElementById("flights"),list=sortedFlights();
   document.getElementById("flight-count").textContent=list.length+(list.length>1?" vols":" vol");
   if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun vol enregistré.</b><br>Touche « + Vol » puis joins les billets.</div>`;return;}
@@ -336,20 +337,13 @@ function renderFlights(){const wrap=document.getElementById("flights"),list=sort
     if(f.cost>0)meta.push(`<span class="stay-cost">${f.payer?`<span class="dot ${f.payer}"></span>`:""}${money(f.cost,f.costcur||"eur")}</span>`);
     return`<div class="flight"><div class="stay-top"><div>
       <div class="stay-dates">${f.date?`<b>${fmtLong(f.date)}</b>`:"date ?"}</div>
-      <div class="stay-name">${esc(f.label)||"(vol)"}</div>
+      <div class="stay-name">✈ ${esc(f.label)||"(vol)"}</div>
       <div class="stay-meta">${meta.join(' <span style="opacity:.4">·</span> ')}</div></div>
-      <span class="badge sky">✈ Vol</span></div>
+      <span class="badge sky">Vol</span></div>
       ${f.notes?`<div class="stay-notes">${esc(f.notes)}</div>`:""}${ticketsHTML(f)}
       <div class="stay-actions"><button onclick="editFlight('${f.id}')">✎ Modifier</button><button class="del" onclick="delFlight('${f.id}')">✕ Supprimer</button></div></div>`;
   }).join("");
 }
-
-function budgetPhase(phase){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?(a/rate):a;let paid={c1:0,c2:0},unassigned=0,prepaid=0,onsite=0;
-  const inc=(cost,cur,payer,cat)=>{const v=e(cost,cur);if(cat==="onsite")onsite+=v;else prepaid+=v;if(payer)paid[payer]+=v;else unassigned+=v;};
-  DATA.stays.forEach(s=>{if(phaseOf(s)===phase&&s.cost>0)inc(s.cost,s.costcur||"eur",s.payer,"prepaid");});
-  DATA.flights.forEach(f=>{if(phaseOf(f)===phase&&f.cost>0)inc(f.cost,f.costcur||"eur",f.payer,"prepaid");});
-  DATA.expenses.forEach(x=>{if(phaseOf(x)===phase)inc(x.amount,x.cur,x.payer,x.cat);});
-  const total=prepaid+onsite;return{rate,total,share:total/2,paid,unassigned,prepaid,onsite};}
 
 function budgetCommon(){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?a/rate:a;
   let paid={c1:0,c2:0},owed={c1:0,c2:0},unassignedPaid=0,orphan=0,prepaid=0,onsite=0;
@@ -363,6 +357,15 @@ function budgetCommon(){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?a/r
     if(!payers.length){if(it.payer)owed[it.payer]+=it.v;else orphan+=it.v;}
     else{const share=it.v/payers.length;payers.forEach(p=>{const c=coupleOf(p);if(c)owed[c]+=share;else orphan+=share;});}});
   return{rate,total:prepaid+onsite,paid,owed,unassignedPaid,orphan,prepaid,onsite};}
+function budgetPhase(phase){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?a/rate:a;
+  let paid={c1:0,c2:0},unassigned=0,prepaid=0,onsite=0;
+  const inc=(cost,cur,payer,cat)=>{const v=e(cost,cur);if(cat==="onsite")onsite+=v;else prepaid+=v;if(payer)paid[payer]+=v;else unassigned+=v;};
+  DATA.stays.forEach(s=>{if(phaseOf(s)===phase&&s.cost>0)inc(s.cost,s.costcur||"eur",s.payer,"prepaid");});
+  DATA.flights.forEach(f=>{if(phaseOf(f)===phase&&f.cost>0)inc(f.cost,f.costcur||"eur",f.payer,"prepaid");});
+  DATA.expenses.forEach(x=>{if(phaseOf(x)===phase)inc(x.amount,x.cur,x.payer,x.cat);});
+  const total=prepaid+onsite;
+  return{rate,total,paid,unassigned,prepaid,onsite};}
+
 function renderBudgetCommon(){const b=budgetCommon(),el=document.getElementById("budget-common");
   const net1=b.paid.c1-b.owed.c1;let settle;
   if(b.total===0)settle=`<div class="settle bal">Ajoute des montants pour calculer le partage.</div>`;
@@ -398,54 +401,36 @@ function renderExpenses(){const wrap=document.getElementById("expenses");const l
     <div class="exp-actions"><button onclick="editExp('${x.id}')">✎ Modifier</button><button class="del" onclick="delExp('${x.id}')">✕ Supprimer</button></div></div>`).join("");
 }
 
+function phaseChip(o){return phaseOf(o)==="sl"?`<span class="slp">Samy & Liza</span>`:"";}
+
 function gapNode(from,to,n,title){return`<div class="tl-node gap"><div class="tl-gap"><div class="tl-when">${fmtLong(from)} → ${fmtLong(to)}</div><div class="tl-what">${title} · ${n} nuit${n>1?"s":""}</div><div class="tl-where">Aucun logement renseigné.</div></div></div>`;}
 function buildTimeline(phase,start,end,emptyMsg,withDepart){
-  const list=sortedStays().filter(s=>phaseOf(s)===phase);
-  if(!list.length)return`<div class="empty">${emptyMsg}</div>`;
+  const stays=sortedStays().filter(s=>phaseOf(s)===phase);const flights=sortedFlights().filter(f=>phaseOf(f)===phase);
+  const allItems=[...stays.map(s=>({t:"stay",date:s.checkin,data:s})),...flights.map(f=>({t:"flight",date:f.date||"",data:f}))].sort((a,b)=>(a.date||"")<(b.date||"")?-1:1);
+  if(!allItems.length)return`<div class="empty">${emptyMsg}</div>`;
   const nodes=[];
-  if(list[0].checkin>start)nodes.push({key:start,html:gapNode(start,list[0].checkin,diffN(start,list[0].checkin),"Avant la 1ʳᵉ étape")});
-  list.forEach((s,i)=>{const n=diffN(s.checkin,s.checkout);
-    nodes.push({key:s.checkin,html:`<div class="tl-node"><div class="tl-when">${fmtLong(s.checkin)} → ${fmtLong(s.checkout)} · ${n} nuit${n>1?"s":""}</div><div class="tl-what">${esc(s.name)||"(sans nom)"} <span style="font-weight:400;font-size:13px;color:var(--muted)">— ${statusLabel(s.status)}</span></div><div class="tl-where">${esc(s.place)||esc(s.address)||""}</div></div>`});
-    const nx=list[i+1];if(nx){if(nx.checkin>s.checkout)nodes.push({key:s.checkout,html:gapNode(s.checkout,nx.checkin,diffN(s.checkout,nx.checkin),"Trou — où dort-on ?")});else if(nx.checkin<s.checkout)nodes.push({key:nx.checkin,html:`<div class="tl-node"><div class="overlap">⚠ Chevauchement : ${esc(s.name)} et ${esc(nx.name)}</div></div>`});}
+  if(allItems[0].date>start)nodes.push({key:start,html:gapNode(start,allItems[0].date,diffN(start,allItems[0].date),"Avant la 1ʳᵉ étape")});
+  allItems.forEach((it,i)=>{
+    if(it.t==="stay"){const s=it.data,n=diffN(s.checkin,s.checkout);
+      nodes.push({key:s.checkin,html:`<div class="tl-node"><div class="tl-when">${fmtLong(s.checkin)} → ${fmtLong(s.checkout)} · ${n} nuit${n>1?"s":""}</div><div class="tl-what">🏨 ${esc(s.name)||"(sans nom)"} <span style="font-weight:400;font-size:13px;color:var(--muted)">— ${statusLabel(s.status)}</span></div><div class="tl-where">${esc(s.place)||esc(s.address)||""}</div></div>`});
+    } else if(it.t==="flight"){const f=it.data;
+      nodes.push({key:f.date,html:`<div class="tl-node"><div class="tl-flight"><div class="tl-when">${fmtLong(f.date)}</div><div class="tl-what">✈ ${esc(f.label)||"(vol)"}</div><div class="tl-where">${[f.flightno,f.airline].filter(Boolean).join(" · ")}</div></div></div>`});
+    }
+    const nx=allItems[i+1];if(nx&&nx.date>it.date)nodes.push({key:it.date,html:gapNode(it.date,nx.date,diffN(it.date,nx.date),"Trou — où dort-on ?")});
   });
-  const last=list[list.length-1];if(last.checkout<end)nodes.push({key:last.checkout,html:gapNode(last.checkout,end,diffN(last.checkout,end),"Après la dernière étape")});
+  const last=allItems[allItems.length-1];if(last.date<end)nodes.push({key:last.date,html:gapNode(last.date,end,diffN(last.date,end),"Après la dernière étape")});
   if(withDepart)nodes.push({key:end,html:`<div class="tl-node depart"><div class="tl-depart"><div class="tl-when">${fmtLong(end)}</div><div class="tl-what">✈ Retour Vinod, Shanez, Ameya &amp; Leyna</div><div class="tl-where">Samy & Liza continuent — voir prolongation ci-dessous</div></div></div>`});
   nodes.sort((a,b)=>a.key<b.key?-1:a.key>b.key?1:0);
   return`<div class="tl">`+nodes.map(n=>n.html).join("")+`</div>`;
 }
 function renderItinerary(){
-  document.getElementById("itinerary").innerHTML=buildTimeline("commun",TRIP_START,COMMON_END,"L'itinéraire commun s'affichera dès qu'une étape est ajoutée.",true);
+  document.getElementById("itinerary").innerHTML=buildTimeline("commun",TRIP_START,COMMON_END,"Ajoutez étapes et vols pour voir l'itinéraire.",true);
   document.getElementById("itinerary-sl").innerHTML=buildTimeline("sl",COMMON_END,SL_END,"Aucune étape pour la prolongation Samy & Liza (1–9 août).",false);
+  const url=mapsRouteUrl();const btn=document.getElementById("maps-btn");if(url){btn.href=url;btn.style.display="";}else btn.style.display="none";
 }
 
-/* ---------- carte ---------- */
-let MAP=null,MLAYER=null;
-function geoQuery(s){const a=(s.address||"").trim();if(a.length>4)return a;const b=[s.place,s.name].filter(Boolean).join(", ");return b?b+", Indonesia":"";}
-function initMap(){if(MAP||typeof L==="undefined"||!document.getElementById("map"))return;
-  MAP=L.map("map",{scrollWheelZoom:false}).setView([-8.5,115.2],8);
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(MAP);
-  MLAYER=L.layerGroup().addTo(MAP);}
-function numIcon(n){return L.divIcon({className:"",html:`<div style="background:#0E5C4A;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 12px/1 'DM Sans',sans-serif;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${n}</div>`,iconSize:[24,24],iconAnchor:[12,12]});}
-function mapsRouteUrl(){const stops=sortedStays().map(geoQuery).filter(Boolean);if(!stops.length)return null;
-  if(stops.length===1)return"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(stops[0]);
-  const o=encodeURIComponent(stops[0]),d=encodeURIComponent(stops[stops.length-1]),wp=stops.slice(1,-1).map(encodeURIComponent).join("|");
-  return`https://www.google.com/maps/dir/?api=1&origin=${o}&destination=${d}${wp?`&waypoints=${wp}`:""}`;}
-function renderMapMarkers(){if(!MAP)return;MLAYER.clearLayers();const list=sortedStays();const pts=[];let i=0;
-  list.forEach(s=>{const q=geoQuery(s);const g=q&&DATA.geo&&DATA.geo[q];if(g&&g.lat){i++;const m=L.marker([g.lat,g.lng],{icon:numIcon(i)}).addTo(MLAYER);m.bindPopup(`<b>${esc(s.name||"")}</b><br>${esc(s.place||s.address||"")}`);pts.push([g.lat,g.lng]);}});
-  if(pts.length>1)L.polyline(pts,{color:"#0E5C4A",weight:3,opacity:.7,dashArray:"1,7"}).addTo(MLAYER);
-  if(pts.length){MAP.fitBounds(pts,{padding:[34,34],maxZoom:11});}
-  const a=document.getElementById("maps-open"),u=mapsRouteUrl();if(u){a.href=u;a.style.display="";}else a.style.display="none";
-  const miss=list.filter(s=>{const q=geoQuery(s);return q&&!(DATA.geo&&DATA.geo[q]&&DATA.geo[q].lat);}).length;
-  document.getElementById("map-note").textContent=pts.length?(miss?miss+" adresse(s) pas encore localisée(s) — précise l'adresse pour les placer.":""):"Ajoute des logements avec une adresse pour tracer la carte.";}
-async function ensureGeocodes(){if(!DATA.geo)DATA.geo={};const seen={},todo=[];
-  sortedStays().forEach(s=>{const q=geoQuery(s);if(q&&!seen[q]&&!DATA.geo[q]){seen[q]=1;todo.push(q);}});
-  if(!todo.length){renderMapMarkers();return;}
-  for(const q of todo){try{const r=await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+encodeURIComponent(q));const j=await r.json();DATA.geo[q]=(j&&j[0])?{lat:+j[0].lat,lng:+j[0].lon}:{fail:1};}catch(e){DATA.geo[q]={fail:1};}
-    renderMapMarkers();await new Promise(r=>setTimeout(r,1100));}
-  await save();renderMapMarkers();}
-
-function renderAll(){renderHeader();renderStays();renderFlights();renderBudgetCommon();renderBudgetSL();renderExpenses();renderItinerary();renderMapMarkers();
-  document.getElementById("foot").innerHTML="Données et billets synchronisés via Google (Sheet + Drive).<br>Voyage commun et prolongation Samy & Liza comptés séparément. Touche ⟳ pour rafraîchir.";}
+function renderAll(){renderHeader();renderStays();renderFlights();renderBudgetCommon();renderBudgetSL();renderExpenses();renderItinerary();
+  document.getElementById("foot").innerHTML="Données synchronisées via Google Apps Script. Vols intégrés à l'itinéraire, budget séparé commun/prolongation.";}
 
 /* logement form */
 function applyStayBounds(){const p=document.querySelector('input[name="sphase"]:checked').value;const ci=document.getElementById("f-checkin"),co=document.getElementById("f-checkout");const s=p==="sl"?COMMON_END:TRIP_START,e=p==="sl"?SL_END:COMMON_END;ci.min=co.min=s;ci.max=co.max=e;}
@@ -464,7 +449,7 @@ function openForm(s){fillTravelers();document.getElementById("flight-panel").cla
   const p=document.getElementById("form-panel");p.classList.add("open");p.scrollIntoView({behavior:"smooth",block:"start"});}
 function closeForm(){document.getElementById("form-panel").classList.remove("open");}
 window.editStay=id=>{const s=DATA.stays.find(x=>x.id===id);if(s)openForm(s);};
-window.delStay=async id=>{const s=DATA.stays.find(x=>x.id===id);if(!confirm("Supprimer « "+(s?s.name:"")+" » ?")){return;}if(s&&s.files){for(const x of s.files){try{await api({action:"delete",id:x.id});}catch(e){}}}DATA.stays=DATA.stays.filter(x=>x.id!==id);await save();renderAll();};
+window.delStay=async id=>{const s=DATA.stays.find(x=>x.id===id);if(!confirm("Supprimer « "+(s?s.name:"")+" » ?"))return;if(s&&s.files){for(const x of s.files){try{await api({action:"delete",id:x.id});}catch(e){}}}DATA.stays=DATA.stays.filter(x=>x.id!==id);await save();renderAll();};
 async function saveStay(){const ci=document.getElementById("f-checkin").value,co=document.getElementById("f-checkout").value,name=document.getElementById("f-name").value.trim();
   if(!ci||!co){alert("Indique arrivée et départ.");return;}if(co<=ci){alert("Le départ doit être après l'arrivée.");return;}if(!name){alert("Donne un nom au logement.");return;}
   const pe=document.querySelector('input[name="spayer"]:checked');const phase=document.querySelector('input[name="sphase"]:checked').value;const typeEl=document.querySelector('input[name="stype"]:checked');const type=typeEl?typeEl.value:"hotel";const id=document.getElementById("f-id").value||uid();
@@ -519,12 +504,15 @@ async function saveExp(){const label=document.getElementById("e-label").value.tr
   const i=DATA.expenses.findIndex(e=>e.id===rec.id);i>=0?DATA.expenses[i]=rec:DATA.expenses.push(rec);await save();closeExp();renderAll();}
 
 function doExport(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="indonesie-2026-backup.json";a.click();URL.revokeObjectURL(a.href);}
-function doImport(file){const fr=new FileReader();fr.onload=async()=>{try{const d=JSON.parse(fr.result);if(!d||!Array.isArray(d.stays))throw 0;DATA=normalize(d);await save();renderAll();ensureGeocodes();alert("Import réussi.");}catch(e){alert("Fichier invalide.");}};fr.readAsText(file);}
+function doImport(file){const fr=new FileReader();fr.onload=async()=>{try{const d=JSON.parse(fr.result);if(!d||!Array.isArray(d.stays))throw 0;DATA=normalize(d);await save();renderAll();renderAll();alert("Import réussi.");}catch(e){alert("Fichier invalide.");}};fr.readAsText(file);}
+async function ensureGeocodes(){}
 
 document.getElementById("add-btn").onclick=()=>openForm(null);
 document.getElementById("cancel-btn").onclick=closeForm;
 document.getElementById("save-btn").onclick=saveStay;
 document.getElementById("add-flight-btn").onclick=()=>openFlight(null);
+document.getElementById("quick-hotel").onclick=()=>openForm(null);
+document.getElementById("quick-flight").onclick=()=>openFlight(null);
 document.getElementById("flight-cancel").onclick=closeFlight;
 document.getElementById("flight-save").onclick=saveFlight;
 document.getElementById("add-exp-btn").onclick=()=>openExp(null);
@@ -540,7 +528,7 @@ document.getElementById("f-checkin").onchange=e=>{const co=document.getElementBy
 window.addEventListener("focus",()=>{if(Date.now()-lastRefresh>8000)refresh();});
 
 function configured(){return /^https:\/\/script\.google\.com\//.test(API_URL);}
-(async()=>{if(!configured()){document.getElementById("setup").style.display="block";return;}document.getElementById("app").style.display="block";await load();initMap();renderAll();ensureGeocodes();})();
+(async()=>{if(!configured()){document.getElementById("setup").style.display="block";return;}document.getElementById("app").style.display="block";await load();renderAll();})();
 </script>
 </body>
 </html>
