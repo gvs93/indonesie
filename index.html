@@ -6,6 +6,8 @@
 <title>Indonésie 2026 — Logements, Vols &amp; Budget</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{--bg:#FBF6EC;--ink:#16241F;--muted:#5C6B62;--jade:#0E5C4A;--jade-2:#0A4034;--jade-soft:#2E7D6B;
     --coral:#E2553A;--gold:#D99A30;--sand:#EFE6D4;--line:#E2D9C6;--card:#FFFFFF;
@@ -71,6 +73,11 @@
   .whochip.on{background:var(--jade);color:#fff;border-color:transparent}
   .whochip.allbtn{border-style:dashed;color:var(--jade);background:#fff}
   .forwho{font-size:11px;font-weight:700;color:#1F4E82;background:#EAF1FA;padding:2px 7px;border-radius:6px}
+  .whohint{font-size:11px;color:var(--muted);margin-top:7px}
+  .map-box{height:260px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:8px;background:#E9EEF0}
+  .mapnote{font-size:12px;color:var(--muted);margin:0 2px 14px}
+  .maps-open{font-size:12.5px;font-weight:700;color:var(--jade);text-decoration:none;background:var(--sand);padding:4px 10px;border-radius:999px}
+  .leaflet-container{font-family:inherit}
   .stay-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12.5px;color:var(--muted);align-items:center}
   .stay-meta a{color:var(--jade);text-decoration:none;font-weight:700}.stay-meta .who b{color:var(--ink)}
   .stay-cost{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--ink)}
@@ -171,7 +178,7 @@
     <div class="field"><label>Adresse complète</label><input type="text" id="f-address" placeholder="ex. Jl. Raya Tegallalang No.5, Ubud"></div>
     <div class="grid2"><div class="field"><label>Montant payé</label><input type="number" inputmode="decimal" min="0" id="f-cost" placeholder="0"></div><div class="field"><label>Devise</label><select id="f-costcur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
     <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="spayer" value="c1"><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="spayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
-    <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="f-who"></div></div>
+    <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="f-who"></div><div class="whohint">Ameya et Leyna (enfants) ne comptent pas dans le partage.</div></div>
     <div class="grid2"><div class="field"><label>Réservé par</label><select id="f-bookedby"></select></div><div class="field"><label>Lien</label><input type="url" id="f-link" placeholder="https://…"></div></div>
     <div class="field"><label>Statut</label><div class="seg"><label class="s-ok"><input type="radio" name="status" value="ok" checked><span>Réservé</span></label><label class="s-opt"><input type="radio" name="status" value="opt"><span>Option</span></label><label class="s-todo"><input type="radio" name="status" value="todo"><span>À réserver</span></label></div></div>
     <div class="field"><label>Notes</label><textarea id="f-notes" placeholder="n° résa, transport, contact…"></textarea></div>
@@ -186,13 +193,20 @@
     <div class="grid2"><div class="field"><label>Compagnie</label><input type="text" id="v-airline" placeholder="ex. Garuda…"></div><div class="field"><label>Passagers</label><input type="text" id="v-pax" placeholder="ex. les 6 / Samy+Liza"></div></div>
     <div class="grid2"><div class="field"><label>Prix payé</label><input type="number" inputmode="decimal" min="0" id="v-cost" placeholder="0"></div><div class="field"><label>Devise</label><select id="v-costcur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
     <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="vpayer" value="c1"><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="vpayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
-    <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="v-who"></div></div>
+    <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="v-who"></div><div class="whohint">Ameya et Leyna (enfants) ne comptent pas dans le partage.</div></div>
     <div class="field"><label>Notes</label><textarea id="v-notes" placeholder="référence, bagages, escale…"></textarea></div>
     <div class="form-actions"><button class="btn-main btn-sky" id="flight-save">Enregistrer</button><button class="btn-ghost" id="flight-cancel">Annuler</button></div>
     <p style="font-size:11.5px;color:var(--muted);margin:10px 0 0">Après enregistrement, joins les billets depuis la fiche du vol.</p>
   </div>
 
-  <section><div class="sec-h"><h2>Logements</h2><span class="count" id="stay-count"></span></div><div id="stays"></div></section>
+  <section id="map-section">
+    <div class="sec-h"><h2>Itinéraire</h2><a id="maps-open" target="_blank" rel="noopener" class="maps-open">Ouvrir dans Maps ↗</a></div>
+    <div id="map" class="map-box"></div>
+    <p id="map-note" class="mapnote"></p>
+    <div id="itinerary"></div>
+  </section>
+
+  <section style="margin-top:26px"><div class="sec-h"><h2>Logements</h2><span class="count" id="stay-count"></span></div><div id="stays"></div></section>
   <section style="margin-top:26px"><div class="sec-h"><h2>Vols &amp; billets</h2><span class="count" id="flight-count"></span></div><div id="flights"></div></section>
 
   <section style="margin-top:26px">
@@ -206,14 +220,12 @@
       <div class="grid2"><div class="field"><label>Montant</label><input type="number" inputmode="decimal" min="0" id="e-amount" placeholder="0"></div><div class="field"><label>Devise</label><select id="e-cur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
       <div class="field"><label>Catégorie</label><div class="seg"><label class="s-pre"><input type="radio" name="ecat" value="prepaid" checked><span>Payé d'avance</span></label><label class="s-on"><input type="radio" name="ecat" value="onsite"><span>Sur place</span></label></div></div>
       <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="epayer" value="c1" checked><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="epayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
-      <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="e-who"></div></div>
+      <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="e-who"></div><div class="whohint">Ameya et Leyna (enfants) ne comptent pas dans le partage.</div></div>
       <div class="field"><label>Date (optionnel)</label><input type="date" id="e-date"></div>
       <div class="form-actions"><button class="btn-main" id="exp-save">Enregistrer</button><button class="btn-ghost" id="exp-cancel">Annuler</button></div>
     </div>
     <div id="expenses"></div>
   </section>
-
-  <section style="margin-top:26px"><div class="sec-h"><h2>Itinéraire commun</h2></div><div id="itinerary"></div></section>
 
   <section class="sl-block">
     <div class="sec-h"><h2>Prolongation Samy &amp; Liza</h2><span class="count">1 – 9 août · à part</span></div>
@@ -225,11 +237,12 @@
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzpO7Ri6IkKouz9smcDKMdwkfzY4fv08rO_3QZUzCqar99QR3Jbm68H1U3fyh7MkaoC1g/exec";
+const API_URL = "COLLE_ICI_TON_URL_APPS_SCRIPT";
 const TRIP_START="2026-06-29",COMMON_END="2026-08-01",SL_END="2026-08-09";
 const DEFAULT_TRAVELERS=["Vinod","Shanez","Ameya","Samy","Liza","Leyna"];
 const COUPLES={c1:"Vinod & Shanez",c2:"Samy & Liza"};
 const PERSON_COUPLE={Vinod:"c1",Shanez:"c1",Ameya:"c1",Samy:"c2",Liza:"c2",Leyna:"c2"};
+const NON_PAYING=["Ameya","Leyna"];
 function coupleOf(name){return PERSON_COUPLE[name]||"";}
 function renderWhoChips(containerId,selected){const el=document.getElementById(containerId);const sel=selected||[];
   el.innerHTML=DATA.travelers.map(t=>`<button type="button" class="whochip${sel.includes(t)?" on":""}" data-name="${esc(t)}">${esc(t)}</button>`).join("")+`<button type="button" class="whochip allbtn">Tous</button>`;
@@ -238,8 +251,8 @@ function readWho(containerId){const w=[...document.getElementById(containerId).q
 function whoChipHTML(o){const w=o.who;if(!w||!w.length||w.length>=DATA.travelers.length)return"";return`<span class="forwho">Pour : ${w.map(esc).join(", ")}</span>`;}
 let DATA=defaults(),attachTarget=null,lastRefresh=0;
 
-function defaults(){return{travelers:[...DEFAULT_TRAVELERS],stays:[],flights:[],expenses:[],rate:17500};}
-function normalize(d){return{travelers:(d&&d.travelers&&d.travelers.length)?d.travelers:[...DEFAULT_TRAVELERS],stays:Array.isArray(d&&d.stays)?d.stays:[],flights:Array.isArray(d&&d.flights)?d.flights:[],expenses:Array.isArray(d&&d.expenses)?d.expenses:[],rate:(d&&d.rate)||17500};}
+function defaults(){return{travelers:[...DEFAULT_TRAVELERS],stays:[],flights:[],expenses:[],rate:17500,geo:{}};}
+function normalize(d){return{travelers:(d&&d.travelers&&d.travelers.length)?d.travelers:[...DEFAULT_TRAVELERS],stays:Array.isArray(d&&d.stays)?d.stays:[],flights:Array.isArray(d&&d.flights)?d.flights:[],expenses:Array.isArray(d&&d.expenses)?d.expenses:[],rate:(d&&d.rate)||17500,geo:(d&&d.geo)||{}};}
 
 function toUTC(iso){const[y,m,d]=iso.split("-").map(Number);return Date.UTC(y,m-1,d);}
 function addDays(iso,n){const dt=new Date(toUTC(iso));dt.setUTCDate(dt.getUTCDate()+n);return dt.toISOString().slice(0,10);}
@@ -343,8 +356,9 @@ function budgetCommon(){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?a/r
   DATA.expenses.forEach(x=>{if(phaseOf(x)==="commun")items.push({v:e(x.amount,x.cur),payer:x.payer,who:x.who,cat:x.cat});});
   items.forEach(it=>{if(it.cat==="onsite")onsite+=it.v;else prepaid+=it.v;
     if(it.payer)paid[it.payer]+=it.v;else unassignedPaid+=it.v;
-    const who=(it.who&&it.who.length)?it.who:DATA.travelers;const share=it.v/(who.length||1);
-    who.forEach(p=>{const c=coupleOf(p);if(c)owed[c]+=share;else orphan+=share;});});
+    const who=(it.who&&it.who.length)?it.who:DATA.travelers;const payers=who.filter(p=>!NON_PAYING.includes(p));
+    if(!payers.length){if(it.payer)owed[it.payer]+=it.v;else orphan+=it.v;}
+    else{const share=it.v/payers.length;payers.forEach(p=>{const c=coupleOf(p);if(c)owed[c]+=share;else orphan+=share;});}});
   return{rate,total:prepaid+onsite,paid,owed,unassignedPaid,orphan,prepaid,onsite};}
 function renderBudgetCommon(){const b=budgetCommon(),el=document.getElementById("budget-common");
   const net1=b.paid.c1-b.owed.c1;let settle;
@@ -401,7 +415,33 @@ function renderItinerary(){
   document.getElementById("itinerary-sl").innerHTML=buildTimeline("sl",COMMON_END,SL_END,"Aucune étape pour la prolongation Samy & Liza (1–9 août).",false);
 }
 
-function renderAll(){renderHeader();renderStays();renderFlights();renderBudgetCommon();renderBudgetSL();renderExpenses();renderItinerary();
+/* ---------- carte ---------- */
+let MAP=null,MLAYER=null;
+function geoQuery(s){const a=(s.address||"").trim();if(a.length>4)return a;const b=[s.place,s.name].filter(Boolean).join(", ");return b?b+", Indonesia":"";}
+function initMap(){if(MAP||typeof L==="undefined"||!document.getElementById("map"))return;
+  MAP=L.map("map",{scrollWheelZoom:false}).setView([-8.5,115.2],8);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(MAP);
+  MLAYER=L.layerGroup().addTo(MAP);}
+function numIcon(n){return L.divIcon({className:"",html:`<div style="background:#0E5C4A;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 12px/1 'DM Sans',sans-serif;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${n}</div>`,iconSize:[24,24],iconAnchor:[12,12]});}
+function mapsRouteUrl(){const stops=sortedStays().map(geoQuery).filter(Boolean);if(!stops.length)return null;
+  if(stops.length===1)return"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(stops[0]);
+  const o=encodeURIComponent(stops[0]),d=encodeURIComponent(stops[stops.length-1]),wp=stops.slice(1,-1).map(encodeURIComponent).join("|");
+  return`https://www.google.com/maps/dir/?api=1&origin=${o}&destination=${d}${wp?`&waypoints=${wp}`:""}`;}
+function renderMapMarkers(){if(!MAP)return;MLAYER.clearLayers();const list=sortedStays();const pts=[];let i=0;
+  list.forEach(s=>{const q=geoQuery(s);const g=q&&DATA.geo&&DATA.geo[q];if(g&&g.lat){i++;const m=L.marker([g.lat,g.lng],{icon:numIcon(i)}).addTo(MLAYER);m.bindPopup(`<b>${esc(s.name||"")}</b><br>${esc(s.place||s.address||"")}`);pts.push([g.lat,g.lng]);}});
+  if(pts.length>1)L.polyline(pts,{color:"#0E5C4A",weight:3,opacity:.7,dashArray:"1,7"}).addTo(MLAYER);
+  if(pts.length){MAP.fitBounds(pts,{padding:[34,34],maxZoom:11});}
+  const a=document.getElementById("maps-open"),u=mapsRouteUrl();if(u){a.href=u;a.style.display="";}else a.style.display="none";
+  const miss=list.filter(s=>{const q=geoQuery(s);return q&&!(DATA.geo&&DATA.geo[q]&&DATA.geo[q].lat);}).length;
+  document.getElementById("map-note").textContent=pts.length?(miss?miss+" adresse(s) pas encore localisée(s) — précise l'adresse pour les placer.":""):"Ajoute des logements avec une adresse pour tracer la carte.";}
+async function ensureGeocodes(){if(!DATA.geo)DATA.geo={};const seen={},todo=[];
+  sortedStays().forEach(s=>{const q=geoQuery(s);if(q&&!seen[q]&&!DATA.geo[q]){seen[q]=1;todo.push(q);}});
+  if(!todo.length){renderMapMarkers();return;}
+  for(const q of todo){try{const r=await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+encodeURIComponent(q));const j=await r.json();DATA.geo[q]=(j&&j[0])?{lat:+j[0].lat,lng:+j[0].lon}:{fail:1};}catch(e){DATA.geo[q]={fail:1};}
+    renderMapMarkers();await new Promise(r=>setTimeout(r,1100));}
+  await save();renderMapMarkers();}
+
+function renderAll(){renderHeader();renderStays();renderFlights();renderBudgetCommon();renderBudgetSL();renderExpenses();renderItinerary();renderMapMarkers();
   document.getElementById("foot").innerHTML="Données et billets synchronisés via Google (Sheet + Drive).<br>Voyage commun et prolongation Samy & Liza comptés séparément. Touche ⟳ pour rafraîchir.";}
 
 /* logement form */
@@ -425,7 +465,7 @@ async function saveStay(){const ci=document.getElementById("f-checkin").value,co
   if(!ci||!co){alert("Indique arrivée et départ.");return;}if(co<=ci){alert("Le départ doit être après l'arrivée.");return;}if(!name){alert("Donne un nom au logement.");return;}
   const pe=document.querySelector('input[name="spayer"]:checked');const phase=document.querySelector('input[name="sphase"]:checked').value;
   const rec={id:document.getElementById("f-id").value||uid(),phase,checkin:ci,checkout:co,name,place:document.getElementById("f-place").value.trim(),address:document.getElementById("f-address").value.trim(),cost:parseFloat(document.getElementById("f-cost").value)||0,costcur:document.getElementById("f-costcur").value,payer:pe?pe.value:"",who:readWho("f-who"),bookedby:document.getElementById("f-bookedby").value,link:document.getElementById("f-link").value.trim(),notes:document.getElementById("f-notes").value.trim(),status:document.querySelector('input[name="status"]:checked').value};
-  const i=DATA.stays.findIndex(x=>x.id===rec.id);i>=0?DATA.stays[i]=rec:DATA.stays.push(rec);await save();closeForm();renderAll();}
+  const i=DATA.stays.findIndex(x=>x.id===rec.id);i>=0?DATA.stays[i]=rec:DATA.stays.push(rec);await save();closeForm();renderAll();ensureGeocodes();}
 
 /* vol form */
 function applyFlightBounds(){const p=document.querySelector('input[name="vphase"]:checked').value;const d=document.getElementById("v-date");d.min=p==="sl"?COMMON_END:TRIP_START;d.max=p==="sl"?SL_END:COMMON_END;}
@@ -474,7 +514,7 @@ async function saveExp(){const label=document.getElementById("e-label").value.tr
   const i=DATA.expenses.findIndex(e=>e.id===rec.id);i>=0?DATA.expenses[i]=rec:DATA.expenses.push(rec);await save();closeExp();renderAll();}
 
 function doExport(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="indonesie-2026-backup.json";a.click();URL.revokeObjectURL(a.href);}
-function doImport(file){const fr=new FileReader();fr.onload=async()=>{try{const d=JSON.parse(fr.result);if(!d||!Array.isArray(d.stays))throw 0;DATA=normalize(d);await save();renderAll();alert("Import réussi.");}catch(e){alert("Fichier invalide.");}};fr.readAsText(file);}
+function doImport(file){const fr=new FileReader();fr.onload=async()=>{try{const d=JSON.parse(fr.result);if(!d||!Array.isArray(d.stays))throw 0;DATA=normalize(d);await save();renderAll();ensureGeocodes();alert("Import réussi.");}catch(e){alert("Fichier invalide.");}};fr.readAsText(file);}
 
 document.getElementById("add-btn").onclick=()=>openForm(null);
 document.getElementById("cancel-btn").onclick=closeForm;
@@ -495,7 +535,7 @@ document.getElementById("f-checkin").onchange=e=>{const co=document.getElementBy
 window.addEventListener("focus",()=>{if(Date.now()-lastRefresh>8000)refresh();});
 
 function configured(){return /^https:\/\/script\.google\.com\//.test(API_URL);}
-(async()=>{if(!configured()){document.getElementById("setup").style.display="block";return;}document.getElementById("app").style.display="block";await load();renderAll();})();
+(async()=>{if(!configured()){document.getElementById("setup").style.display="block";return;}document.getElementById("app").style.display="block";await load();initMap();renderAll();ensureGeocodes();})();
 </script>
 </body>
 </html>
