@@ -239,7 +239,7 @@
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzpO7Ri6IkKouz9smcDKMdwkfzY4fv08rO_3QZUzCqar99QR3Jbm68H1U3fyh7MkaoC1g/exec";
+const API_URL = "COLLE_ICI_TON_URL_APPS_SCRIPT";
 const TRIP_START="2026-06-29",COMMON_END="2026-08-01",SL_END="2026-08-09";
 const DEFAULT_TRAVELERS=["Vinod","Shanez","Ameya","Samy","Liza","Leyna"];
 const COUPLES={c1:"Vinod & Shanez",c2:"Samy & Liza"};
@@ -467,7 +467,7 @@ window.editStay=id=>{const s=DATA.stays.find(x=>x.id===id);if(s)openForm(s);};
 window.delStay=async id=>{const s=DATA.stays.find(x=>x.id===id);if(!confirm("Supprimer « "+(s?s.name:"")+" » ?")){return;}if(s&&s.files){for(const x of s.files){try{await api({action:"delete",id:x.id});}catch(e){}}}DATA.stays=DATA.stays.filter(x=>x.id!==id);await save();renderAll();};
 async function saveStay(){const ci=document.getElementById("f-checkin").value,co=document.getElementById("f-checkout").value,name=document.getElementById("f-name").value.trim();
   if(!ci||!co){alert("Indique arrivée et départ.");return;}if(co<=ci){alert("Le départ doit être après l'arrivée.");return;}if(!name){alert("Donne un nom au logement.");return;}
-  const pe=document.querySelector('input[name="spayer"]:checked');const phase=document.querySelector('input[name="sphase"]:checked').value;const type=document.querySelector('input[name="stype"]:checked').value;
+  const pe=document.querySelector('input[name="spayer"]:checked');const phase=document.querySelector('input[name="sphase"]:checked').value;const typeEl=document.querySelector('input[name="stype"]:checked');const type=typeEl?typeEl.value:"hotel";
   const rec={id:document.getElementById("f-id").value||uid(),phase,type,checkin:ci,checkout:co,name,place:document.getElementById("f-place").value.trim(),address:document.getElementById("f-address").value.trim(),cost:parseFloat(document.getElementById("f-cost").value)||0,costcur:document.getElementById("f-costcur").value,payer:pe?pe.value:"",who:readWho("f-who"),bookedby:document.getElementById("f-bookedby").value,link:document.getElementById("f-link").value.trim(),notes:document.getElementById("f-notes").value.trim(),status:document.querySelector('input[name="status"]:checked').value,files:(s&&s.files)||[]};
   const i=DATA.stays.findIndex(x=>x.id===rec.id);i>=0?DATA.stays[i]=rec:DATA.stays.push(rec);await save();closeForm();renderAll();ensureGeocodes();}
 
