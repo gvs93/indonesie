@@ -66,6 +66,11 @@
   .badge{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:4px 9px;border-radius:999px;white-space:nowrap;flex-shrink:0}
   .badge.ok{background:#DDEFE4;color:var(--ok)}.badge.todo{background:#FBE2DB;color:#B23A22}.badge.opt{background:#F7EBCF;color:#8E6410}.badge.sky{background:#E3EFF8;color:var(--sky)}
   .slp{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:6px;background:#EAF1FA;color:#1F4E82}
+  .whoselect{display:flex;flex-wrap:wrap;gap:6px}
+  .whochip{font-family:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:#FCFAF4;color:var(--muted);cursor:pointer}
+  .whochip.on{background:var(--jade);color:#fff;border-color:transparent}
+  .whochip.allbtn{border-style:dashed;color:var(--jade);background:#fff}
+  .forwho{font-size:11px;font-weight:700;color:#1F4E82;background:#EAF1FA;padding:2px 7px;border-radius:6px}
   .stay-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12.5px;color:var(--muted);align-items:center}
   .stay-meta a{color:var(--jade);text-decoration:none;font-weight:700}.stay-meta .who b{color:var(--ink)}
   .stay-cost{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--ink)}
@@ -166,6 +171,7 @@
     <div class="field"><label>Adresse complète</label><input type="text" id="f-address" placeholder="ex. Jl. Raya Tegallalang No.5, Ubud"></div>
     <div class="grid2"><div class="field"><label>Montant payé</label><input type="number" inputmode="decimal" min="0" id="f-cost" placeholder="0"></div><div class="field"><label>Devise</label><select id="f-costcur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
     <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="spayer" value="c1"><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="spayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
+    <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="f-who"></div></div>
     <div class="grid2"><div class="field"><label>Réservé par</label><select id="f-bookedby"></select></div><div class="field"><label>Lien</label><input type="url" id="f-link" placeholder="https://…"></div></div>
     <div class="field"><label>Statut</label><div class="seg"><label class="s-ok"><input type="radio" name="status" value="ok" checked><span>Réservé</span></label><label class="s-opt"><input type="radio" name="status" value="opt"><span>Option</span></label><label class="s-todo"><input type="radio" name="status" value="todo"><span>À réserver</span></label></div></div>
     <div class="field"><label>Notes</label><textarea id="f-notes" placeholder="n° résa, transport, contact…"></textarea></div>
@@ -180,6 +186,7 @@
     <div class="grid2"><div class="field"><label>Compagnie</label><input type="text" id="v-airline" placeholder="ex. Garuda…"></div><div class="field"><label>Passagers</label><input type="text" id="v-pax" placeholder="ex. les 6 / Samy+Liza"></div></div>
     <div class="grid2"><div class="field"><label>Prix payé</label><input type="number" inputmode="decimal" min="0" id="v-cost" placeholder="0"></div><div class="field"><label>Devise</label><select id="v-costcur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
     <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="vpayer" value="c1"><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="vpayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
+    <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="v-who"></div></div>
     <div class="field"><label>Notes</label><textarea id="v-notes" placeholder="référence, bagages, escale…"></textarea></div>
     <div class="form-actions"><button class="btn-main btn-sky" id="flight-save">Enregistrer</button><button class="btn-ghost" id="flight-cancel">Annuler</button></div>
     <p style="font-size:11.5px;color:var(--muted);margin:10px 0 0">Après enregistrement, joins les billets depuis la fiche du vol.</p>
@@ -199,6 +206,7 @@
       <div class="grid2"><div class="field"><label>Montant</label><input type="number" inputmode="decimal" min="0" id="e-amount" placeholder="0"></div><div class="field"><label>Devise</label><select id="e-cur"><option value="eur">€ (euro)</option><option value="idr">Rp (roupie)</option></select></div></div>
       <div class="field"><label>Catégorie</label><div class="seg"><label class="s-pre"><input type="radio" name="ecat" value="prepaid" checked><span>Payé d'avance</span></label><label class="s-on"><input type="radio" name="ecat" value="onsite"><span>Sur place</span></label></div></div>
       <div class="field"><label>Payé par (couple)</label><div class="seg"><label class="s-c1"><input type="radio" name="epayer" value="c1" checked><span>Vinod &amp; Shanez</span></label><label class="s-c2"><input type="radio" name="epayer" value="c2"><span>Samy &amp; Liza</span></label></div></div>
+      <div class="field"><label>Pour qui (partage)</label><div class="whoselect" id="e-who"></div></div>
       <div class="field"><label>Date (optionnel)</label><input type="date" id="e-date"></div>
       <div class="form-actions"><button class="btn-main" id="exp-save">Enregistrer</button><button class="btn-ghost" id="exp-cancel">Annuler</button></div>
     </div>
@@ -217,10 +225,17 @@
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzpO7Ri6IkKouz9smcDKMdwkfzY4fv08rO_3QZUzCqar99QR3Jbm68H1U3fyh7MkaoC1g/exec";
+const API_URL = "COLLE_ICI_TON_URL_APPS_SCRIPT";
 const TRIP_START="2026-06-29",COMMON_END="2026-08-01",SL_END="2026-08-09";
 const DEFAULT_TRAVELERS=["Vinod","Shanez","Ameya","Samy","Liza","Leyna"];
 const COUPLES={c1:"Vinod & Shanez",c2:"Samy & Liza"};
+const PERSON_COUPLE={Vinod:"c1",Shanez:"c1",Ameya:"c1",Samy:"c2",Liza:"c2",Leyna:"c2"};
+function coupleOf(name){return PERSON_COUPLE[name]||"";}
+function renderWhoChips(containerId,selected){const el=document.getElementById(containerId);const sel=selected||[];
+  el.innerHTML=DATA.travelers.map(t=>`<button type="button" class="whochip${sel.includes(t)?" on":""}" data-name="${esc(t)}">${esc(t)}</button>`).join("")+`<button type="button" class="whochip allbtn">Tous</button>`;
+  el.querySelectorAll(".whochip").forEach(b=>b.onclick=()=>{if(b.classList.contains("allbtn")){el.querySelectorAll(".whochip:not(.allbtn)").forEach(x=>x.classList.add("on"));return;}b.classList.toggle("on");});}
+function readWho(containerId){const w=[...document.getElementById(containerId).querySelectorAll(".whochip.on:not(.allbtn)")].map(b=>b.dataset.name);return w.length?w:[...DATA.travelers];}
+function whoChipHTML(o){const w=o.who;if(!w||!w.length||w.length>=DATA.travelers.length)return"";return`<span class="forwho">Pour : ${w.map(esc).join(", ")}</span>`;}
 let DATA=defaults(),attachTarget=null,lastRefresh=0;
 
 function defaults(){return{travelers:[...DEFAULT_TRAVELERS],stays:[],flights:[],expenses:[],rate:17500};}
@@ -281,7 +296,7 @@ function renderStays(){const wrap=document.getElementById("stays"),list=sortedSt
   document.getElementById("stay-count").textContent=list.length+(list.length>1?" étapes":" étape");
   if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun logement pour l'instant.</b><br>Touche « + Étape » pour répertorier où vous dormez.</div>`;return;}
   wrap.innerHTML=list.map(s=>{const n=diffN(s.checkin,s.checkout);const meta=[];
-    const pc=phaseChip(s);if(pc)meta.push(pc);
+    const pc=phaseChip(s);if(pc)meta.push(pc);const wc=whoChipHTML(s);if(wc)meta.push(wc);
     if(s.cost>0)meta.push(`<span class="stay-cost">${s.payer?`<span class="dot ${s.payer}"></span>`:""}${money(s.cost,s.costcur||"eur")}${s.payer?` · ${esc(COUPLES[s.payer])}`:""}</span>`);
     if(s.bookedby)meta.push(`<span class="who">résa <b>${esc(s.bookedby)}</b></span>`);
     if(s.link)meta.push(`<a href="${esc(s.link)}" target="_blank" rel="noopener">Résa ↗</a>`);
@@ -300,7 +315,7 @@ function ticketsHTML(f){const chips=(f.files||[]).map(x=>`<span class="file-chip
 function renderFlights(){const wrap=document.getElementById("flights"),list=sortedFlights();
   document.getElementById("flight-count").textContent=list.length+(list.length>1?" vols":" vol");
   if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun vol enregistré.</b><br>Touche « + Vol » puis joins les billets.</div>`;return;}
-  wrap.innerHTML=list.map(f=>{const meta=[];const pc=phaseChip(f);if(pc)meta.push(pc);
+  wrap.innerHTML=list.map(f=>{const meta=[];const pc=phaseChip(f);if(pc)meta.push(pc);const wc=whoChipHTML(f);if(wc)meta.push(wc);
     if(f.flightno)meta.push(esc(f.flightno));if(f.airline)meta.push(esc(f.airline));if(f.pax)meta.push("👥 "+esc(f.pax));
     if(f.cost>0)meta.push(`<span class="stay-cost">${f.payer?`<span class="dot ${f.payer}"></span>`:""}${money(f.cost,f.costcur||"eur")}</span>`);
     return`<div class="flight"><div class="stay-top"><div>
@@ -320,16 +335,31 @@ function budgetPhase(phase){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"
   DATA.expenses.forEach(x=>{if(phaseOf(x)===phase)inc(x.amount,x.cur,x.payer,x.cat);});
   const total=prepaid+onsite;return{rate,total,share:total/2,paid,unassigned,prepaid,onsite};}
 
-function renderBudgetCommon(){const b=budgetPhase("commun"),el=document.getElementById("budget-common");
-  const p1=b.total?b.paid.c1/b.total*100:0,p2=b.total?b.paid.c2/b.total*100:0,net1=b.paid.c1-b.share;let settle;
-  if(b.total===0)settle=`<div class="settle bal">Ajoute des montants pour voir la répartition 50/50.</div>`;
-  else if(Math.abs(net1)<1)settle=`<div class="settle bal">✓ Comptes équilibrés — ~${eur(b.share)} par couple.</div>`;
-  else if(net1>0)settle=`<div class="settle owe"><b>Samy & Liza</b> doivent <b>${eur(net1)}</b> à <b>Vinod & Shanez</b><br><span style="font-weight:500;opacity:.8">part = ${eur(b.share)} / couple</span></div>`;
-  else settle=`<div class="settle owe"><b>Vinod & Shanez</b> doivent <b>${eur(-net1)}</b> à <b>Samy & Liza</b><br><span style="font-weight:500;opacity:.8">part = ${eur(b.share)} / couple</span></div>`;
+function budgetCommon(){const rate=DATA.rate||17500;const e=(a,c)=>c==="idr"?a/rate:a;
+  let paid={c1:0,c2:0},owed={c1:0,c2:0},unassignedPaid=0,orphan=0,prepaid=0,onsite=0;
+  const items=[];
+  DATA.stays.forEach(s=>{if(phaseOf(s)==="commun"&&s.cost>0)items.push({v:e(s.cost,s.costcur||"eur"),payer:s.payer,who:s.who,cat:"prepaid"});});
+  DATA.flights.forEach(f=>{if(phaseOf(f)==="commun"&&f.cost>0)items.push({v:e(f.cost,f.costcur||"eur"),payer:f.payer,who:f.who,cat:"prepaid"});});
+  DATA.expenses.forEach(x=>{if(phaseOf(x)==="commun")items.push({v:e(x.amount,x.cur),payer:x.payer,who:x.who,cat:x.cat});});
+  items.forEach(it=>{if(it.cat==="onsite")onsite+=it.v;else prepaid+=it.v;
+    if(it.payer)paid[it.payer]+=it.v;else unassignedPaid+=it.v;
+    const who=(it.who&&it.who.length)?it.who:DATA.travelers;const share=it.v/(who.length||1);
+    who.forEach(p=>{const c=coupleOf(p);if(c)owed[c]+=share;else orphan+=share;});});
+  return{rate,total:prepaid+onsite,paid,owed,unassignedPaid,orphan,prepaid,onsite};}
+function renderBudgetCommon(){const b=budgetCommon(),el=document.getElementById("budget-common");
+  const net1=b.paid.c1-b.owed.c1;let settle;
+  if(b.total===0)settle=`<div class="settle bal">Ajoute des montants pour calculer le partage.</div>`;
+  else if(Math.abs(net1)<1)settle=`<div class="settle bal">✓ Comptes équilibrés.</div>`;
+  else if(net1>0)settle=`<div class="settle owe"><b>Samy & Liza</b> doivent <b>${eur(net1)}</b> à <b>Vinod & Shanez</b></div>`;
+  else settle=`<div class="settle owe"><b>Vinod & Shanez</b> doivent <b>${eur(-net1)}</b> à <b>Samy & Liza</b></div>`;
+  const tot=(b.owed.c1+b.owed.c2)||1,p1=b.owed.c1/tot*100,p2=b.owed.c2/tot*100;
   el.innerHTML=`<div class="budget-total"><span class="big">${eur(b.total)}</span><span class="lbl">voyage commun</span></div>
     <div class="split-bars"><i class="b1" style="width:${p1}%"></i><i class="b2" style="width:${p2}%"></i></div>
-    <div class="couple-rows"><div class="couple-row"><span class="nm"><span class="dot c1"></span>Vinod & Shanez</span><span class="amt">${eur(b.paid.c1)}</span></div><div class="couple-row"><span class="nm"><span class="dot c2"></span>Samy & Liza</span><span class="amt">${eur(b.paid.c2)}</span></div></div>
-    ${b.unassigned>0?`<div class="unassigned">⚠ ${eur(b.unassigned)} sans couple attribué.</div>`:""}${settle}
+    <div class="couple-rows">
+      <div class="couple-row"><span class="nm"><span class="dot c1"></span>Vinod & Shanez</span><span class="amt" style="font-size:13px">payé ${eur(b.paid.c1)} · part ${eur(b.owed.c1)}</span></div>
+      <div class="couple-row"><span class="nm"><span class="dot c2"></span>Samy & Liza</span><span class="amt" style="font-size:13px">payé ${eur(b.paid.c2)} · part ${eur(b.owed.c2)}</span></div>
+    </div>
+    ${b.unassignedPaid>0?`<div class="unassigned">⚠ ${eur(b.unassignedPaid)} payés sans couple indiqué.</div>`:""}${settle}
     <div class="cat-split"><div class="cat-box"><div class="k">Payé d'avance</div><div class="v">${eur(b.prepaid)}</div></div><div class="cat-box"><div class="k">Sur place</div><div class="v">${eur(b.onsite)}</div></div></div>
     <div class="rate-row">Taux : 1 € = <input type="number" id="rate-input" value="${b.rate}"> Rp <span style="font-size:11px">(Rp convertis en €)</span></div>`;
   document.getElementById("rate-input").onchange=e=>{const v=parseFloat(e.target.value);if(v>0){DATA.rate=v;save();renderAll();}};
@@ -346,7 +376,7 @@ function renderBudgetSL(){const b=budgetPhase("sl"),el=document.getElementById("
 function renderExpenses(){const wrap=document.getElementById("expenses");const list=[...DATA.expenses].sort((a,b)=>(a.date||"")<(b.date||"")?1:-1);
   if(!list.length){wrap.innerHTML=`<div class="empty">Aucune dépense (hors logements & vols).<br>Voiture, activités, restos, sur-place…</div>`;return;}
   wrap.innerHTML=list.map(x=>`<div class="exp ${x.payer||""}"><div class="exp-top"><div><div class="exp-label">${esc(x.label)||"(sans intitulé)"}</div>
-    <div class="exp-sub">${phaseChip(x)}<span class="tag ${x.cat==="onsite"?"on":"pre"}">${x.cat==="onsite"?"Sur place":"Payé d'avance"}</span>${x.payer?`<span><span class="dot ${x.payer}"></span> ${esc(COUPLES[x.payer])}</span>`:""}${x.date?`<span>${fmt(x.date)}</span>`:""}</div></div>
+    <div class="exp-sub">${phaseChip(x)}${whoChipHTML(x)}<span class="tag ${x.cat==="onsite"?"on":"pre"}">${x.cat==="onsite"?"Sur place":"Payé d'avance"}</span>${x.payer?`<span><span class="dot ${x.payer}"></span> ${esc(COUPLES[x.payer])}</span>`:""}${x.date?`<span>${fmt(x.date)}</span>`:""}</div></div>
     <div class="exp-amt">${money(x.amount,x.cur)}</div></div>
     <div class="exp-actions"><button onclick="editExp('${x.id}')">✎ Modifier</button><button class="del" onclick="delExp('${x.id}')">✕ Supprimer</button></div></div>`).join("");
 }
@@ -380,6 +410,7 @@ function fillTravelers(){document.getElementById("f-bookedby").innerHTML=`<optio
 function openForm(s){fillTravelers();document.getElementById("flight-panel").classList.remove("open");
   document.getElementById("form-title").textContent=s?"Modifier l'étape":"Nouvelle étape";document.getElementById("f-id").value=s?s.id:"";
   document.querySelectorAll('input[name="sphase"]').forEach(r=>r.checked=(r.value===phaseOf(s)));applyStayBounds();
+  renderWhoChips("f-who",s&&s.who&&s.who.length?s.who:[...DATA.travelers]);
   document.getElementById("f-checkin").value=s?s.checkin:"";document.getElementById("f-checkout").value=s?s.checkout:"";
   document.getElementById("f-name").value=s?s.name:"";document.getElementById("f-place").value=s?s.place:"";document.getElementById("f-address").value=s?s.address:"";
   document.getElementById("f-cost").value=s&&s.cost?s.cost:"";document.getElementById("f-costcur").value=s?s.costcur||"eur":"eur";
@@ -393,7 +424,7 @@ window.delStay=id=>{const s=DATA.stays.find(x=>x.id===id);if(confirm("Supprimer 
 async function saveStay(){const ci=document.getElementById("f-checkin").value,co=document.getElementById("f-checkout").value,name=document.getElementById("f-name").value.trim();
   if(!ci||!co){alert("Indique arrivée et départ.");return;}if(co<=ci){alert("Le départ doit être après l'arrivée.");return;}if(!name){alert("Donne un nom au logement.");return;}
   const pe=document.querySelector('input[name="spayer"]:checked');const phase=document.querySelector('input[name="sphase"]:checked').value;
-  const rec={id:document.getElementById("f-id").value||uid(),phase,checkin:ci,checkout:co,name,place:document.getElementById("f-place").value.trim(),address:document.getElementById("f-address").value.trim(),cost:parseFloat(document.getElementById("f-cost").value)||0,costcur:document.getElementById("f-costcur").value,payer:pe?pe.value:"",bookedby:document.getElementById("f-bookedby").value,link:document.getElementById("f-link").value.trim(),notes:document.getElementById("f-notes").value.trim(),status:document.querySelector('input[name="status"]:checked').value};
+  const rec={id:document.getElementById("f-id").value||uid(),phase,checkin:ci,checkout:co,name,place:document.getElementById("f-place").value.trim(),address:document.getElementById("f-address").value.trim(),cost:parseFloat(document.getElementById("f-cost").value)||0,costcur:document.getElementById("f-costcur").value,payer:pe?pe.value:"",who:readWho("f-who"),bookedby:document.getElementById("f-bookedby").value,link:document.getElementById("f-link").value.trim(),notes:document.getElementById("f-notes").value.trim(),status:document.querySelector('input[name="status"]:checked').value};
   const i=DATA.stays.findIndex(x=>x.id===rec.id);i>=0?DATA.stays[i]=rec:DATA.stays.push(rec);await save();closeForm();renderAll();}
 
 /* vol form */
@@ -401,6 +432,7 @@ function applyFlightBounds(){const p=document.querySelector('input[name="vphase"
 function openFlight(f){document.getElementById("form-panel").classList.remove("open");
   document.getElementById("flight-title").textContent=f?"Modifier le vol":"Nouveau vol";document.getElementById("v-id").value=f?f.id:"";
   document.querySelectorAll('input[name="vphase"]').forEach(r=>r.checked=(r.value===phaseOf(f)));applyFlightBounds();
+  renderWhoChips("v-who",f&&f.who&&f.who.length?f.who:[...DATA.travelers]);
   document.getElementById("v-label").value=f?f.label:"";document.getElementById("v-date").value=f?f.date||"":"";document.getElementById("v-flightno").value=f?f.flightno||"":"";
   document.getElementById("v-airline").value=f?f.airline||"":"";document.getElementById("v-pax").value=f?f.pax||"":"";
   document.getElementById("v-cost").value=f&&f.cost?f.cost:"";document.getElementById("v-costcur").value=f?f.costcur||"eur":"eur";
@@ -411,7 +443,7 @@ window.editFlight=id=>{const f=DATA.flights.find(x=>x.id===id);if(f)openFlight(f
 window.delFlight=async id=>{const f=DATA.flights.find(x=>x.id===id);if(!confirm("Supprimer ce vol et ses billets ?"))return;if(f&&f.files)for(const x of f.files){try{await api({action:"delete",id:x.id});}catch(e){}}DATA.flights=DATA.flights.filter(x=>x.id!==id);await save();renderAll();};
 async function saveFlight(){const label=document.getElementById("v-label").value.trim();if(!label){alert("Indique le trajet du vol.");return;}
   const pe=document.querySelector('input[name="vpayer"]:checked');const phase=document.querySelector('input[name="vphase"]:checked').value;const id=document.getElementById("v-id").value||uid();const ex=DATA.flights.find(x=>x.id===id);
-  const rec={id,phase,label,date:document.getElementById("v-date").value,flightno:document.getElementById("v-flightno").value.trim(),airline:document.getElementById("v-airline").value.trim(),pax:document.getElementById("v-pax").value.trim(),cost:parseFloat(document.getElementById("v-cost").value)||0,costcur:document.getElementById("v-costcur").value,payer:pe?pe.value:"",notes:document.getElementById("v-notes").value.trim(),files:ex?ex.files||[]:[]};
+  const rec={id,phase,label,date:document.getElementById("v-date").value,flightno:document.getElementById("v-flightno").value.trim(),airline:document.getElementById("v-airline").value.trim(),pax:document.getElementById("v-pax").value.trim(),cost:parseFloat(document.getElementById("v-cost").value)||0,costcur:document.getElementById("v-costcur").value,payer:pe?pe.value:"",who:readWho("v-who"),notes:document.getElementById("v-notes").value.trim(),files:ex?ex.files||[]:[]};
   const i=DATA.flights.findIndex(x=>x.id===id);i>=0?DATA.flights[i]=rec:DATA.flights.push(rec);await save();closeFlight();renderAll();}
 
 /* billets */
@@ -429,6 +461,7 @@ window.rmFile=async(fid,xid)=>{if(!confirm("Supprimer ce billet ?"))return;try{s
 /* dépense form */
 function openExp(x){document.getElementById("exp-title").textContent=x?"Modifier la dépense":"Nouvelle dépense";document.getElementById("e-id").value=x?x.id:"";
   document.querySelectorAll('input[name="ephase"]').forEach(r=>r.checked=(r.value===phaseOf(x)));
+  renderWhoChips("e-who",x&&x.who&&x.who.length?x.who:[...DATA.travelers]);
   document.getElementById("e-label").value=x?x.label:"";document.getElementById("e-amount").value=x&&x.amount?x.amount:"";document.getElementById("e-cur").value=x?x.cur||"eur":"eur";
   document.querySelectorAll('input[name="ecat"]').forEach(r=>r.checked=(r.value===(x?x.cat:"prepaid")));document.querySelectorAll('input[name="epayer"]').forEach(r=>r.checked=(r.value===(x?x.payer:"c1")));
   document.getElementById("e-date").value=x?x.date||"":"";const p=document.getElementById("exp-panel");p.classList.add("open");p.scrollIntoView({behavior:"smooth",block:"start"});}
@@ -437,7 +470,7 @@ window.editExp=id=>{const x=DATA.expenses.find(e=>e.id===id);if(x)openExp(x);};
 window.delExp=id=>{const x=DATA.expenses.find(e=>e.id===id);if(confirm("Supprimer « "+(x?x.label:"")+" » ?")){DATA.expenses=DATA.expenses.filter(e=>e.id!==id);save();renderAll();}};
 async function saveExp(){const label=document.getElementById("e-label").value.trim(),amount=parseFloat(document.getElementById("e-amount").value)||0;
   if(!label){alert("Donne un intitulé.");return;}if(amount<=0){alert("Indique un montant.");return;}
-  const rec={id:document.getElementById("e-id").value||uid(),phase:document.querySelector('input[name="ephase"]:checked').value,label,amount,cur:document.getElementById("e-cur").value,cat:document.querySelector('input[name="ecat"]:checked').value,payer:document.querySelector('input[name="epayer"]:checked').value,date:document.getElementById("e-date").value};
+  const rec={id:document.getElementById("e-id").value||uid(),phase:document.querySelector('input[name="ephase"]:checked').value,label,amount,cur:document.getElementById("e-cur").value,cat:document.querySelector('input[name="ecat"]:checked').value,payer:document.querySelector('input[name="epayer"]:checked').value,who:readWho("e-who"),date:document.getElementById("e-date").value};
   const i=DATA.expenses.findIndex(e=>e.id===rec.id);i>=0?DATA.expenses[i]=rec:DATA.expenses.push(rec);await save();closeExp();renderAll();}
 
 function doExport(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="indonesie-2026-backup.json";a.click();URL.revokeObjectURL(a.href);}
