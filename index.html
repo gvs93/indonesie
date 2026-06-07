@@ -37,6 +37,7 @@
   .btn-main:active{transform:translateY(1px)}.btn-sky{background:var(--sky);box-shadow:0 8px 18px -8px rgba(31,111,168,.7)}
   .btn-ghost{background:#fff;color:var(--jade);border:1.5px solid var(--line);padding:13px 14px;font-size:13.5px}.btn-ghost:active{background:var(--sand)}
   .btn-sm{font-size:13px;padding:9px 12px;background:var(--sand);color:var(--jade);border:1px solid var(--line)}
+  .btn-tl{font-size:11px;padding:5px 8px;background:#fff;border:1px solid var(--line);color:var(--jade);font-weight:700;border-radius:8px;cursor:pointer}
   #sync{font-size:12px;font-weight:700;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap}
   #sync.ok{color:var(--jade);border-color:#CFE6DB;background:#F1F8F4}#sync.err{color:#B23A22;border-color:#F2C9BE;background:#FBE9E3}#sync.busy{color:var(--sky);border-color:#CFE0EE;background:#F1F7FC}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:22px;box-shadow:var(--shadow);display:none}
@@ -118,11 +119,13 @@
   .tl-what{font-family:"Fraunces",serif;font-size:17px;font-weight:600;margin:1px 0}.tl-where{font-size:13px;color:var(--muted)}
   .tl-gap{background:#FBE2DB;border:1px dashed #E2553A;border-radius:12px;padding:10px 13px}
   .tl-gap .tl-when{color:#B23A22}.tl-gap .tl-what{color:#B23A22;font-size:15px}.tl-gap .tl-where{color:#A2452F}
+  .tl-gap .btn-tl{margin-top:8px}
   .tl-node.depart::before{background:var(--gold);box-shadow:0 0 0 1.5px var(--gold)}
   .tl-depart{background:#FBF1DA;border:1px dashed var(--gold);border-radius:12px;padding:10px 13px}
   .tl-depart .tl-when{color:#8E6410}.tl-depart .tl-what{color:#8E6410;font-size:15px}.tl-depart .tl-where{color:#9A7320}
   .tl-flight{background:#E3EFF8;border:1px dashed var(--sky);border-radius:12px;padding:10px 13px}
   .tl-flight .tl-when{color:#1F4E82}.tl-flight .tl-what{color:#1F4E82;font-size:15px}.tl-flight .tl-where{color:#2E6FB0}
+  .tl-flight .btn-tl{margin-top:8px}
   .overlap{color:var(--coral);font-weight:700;font-size:11.5px;margin-top:2px}
   .empty{text-align:center;color:var(--muted);padding:26px 18px;border:1.5px dashed var(--line);border-radius:16px;font-size:14px}.empty b{color:var(--ink)}
   .sl-block{background:#F3F8FC;border:1px solid #DBE7F2;border-radius:22px;padding:18px 16px 6px;margin-top:30px}
@@ -201,12 +204,8 @@
 
   <section id="itinerary-section">
     <div class="sec-h"><h2>Itinéraire</h2><a id="maps-btn" class="maps-link" target="_blank" rel="noopener">📍 Google Maps</a></div>
-    <div style="display:flex;gap:8px;margin-bottom:16px"><button class="btn-sm" id="quick-hotel">+ Hôtel</button><button class="btn-sm" id="quick-flight">+ Vol</button></div>
     <div id="itinerary"></div>
   </section>
-
-  <section style="margin-top:26px"><div class="sec-h"><h2>Logements</h2><span class="count" id="stay-count"></span></div><div id="stays"></div></section>
-  <section style="margin-top:26px"><div class="sec-h"><h2>Vols &amp; billets</h2><span class="count" id="flight-count"></span></div><div id="flights"></div></section>
 
   <section style="margin-top:26px">
     <div class="sec-h"><h2>Budget commun</h2><span class="count">50 / 50</span></div>
@@ -226,6 +225,9 @@
     <div id="expenses"></div>
   </section>
 
+  <section style="margin-top:26px"><div class="sec-h"><h2>Logements</h2><span class="count" id="stay-count"></span></div><div id="stays"></div></section>
+  <section style="margin-top:26px"><div class="sec-h"><h2>Vols &amp; billets</h2><span class="count" id="flight-count"></span></div><div id="flights"></div></section>
+
   <section class="sl-block">
     <div class="sec-h"><h2>Prolongation Samy &amp; Liza</h2><span class="count">1 – 9 août · à part</span></div>
     <div class="budget-card" id="budget-sl"></div>
@@ -236,7 +238,7 @@
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzpO7Ri6IkKouz9smcDKMdwkfzY4fv08rO_3QZUzCqar99QR3Jbm68H1U3fyh7MkaoC1g/exec";
+const API_URL = "COLLE_ICI_TON_URL_APPS_SCRIPT";
 const TRIP_START="2026-06-29",COMMON_END="2026-08-01",SL_END="2026-08-09";
 const DEFAULT_TRAVELERS=["Vinod","Shanez","Ameya","Samy","Liza","Leyna"];
 const COUPLES={c1:"Vinod & Shanez",c2:"Samy & Liza"};
@@ -310,7 +312,7 @@ function renderHeader(){
 
 function renderStays(){const wrap=document.getElementById("stays"),list=sortedStays();
   document.getElementById("stay-count").textContent=list.length+(list.length>1?" étapes":" étape");
-  if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun logement pour l'instant.</b><br>Touche « + Étape » pour répertorier où vous dormez ou voyagez.</div>`;return;}
+  if(!list.length){wrap.innerHTML=`<div class="empty"><b>Aucun logement pour l'instant.</b><br>Touche « + Étape » ou clique sur un trou dans l'itinéraire.</div>`;return;}
   wrap.innerHTML=list.map(s=>{const n=diffN(s.checkin,s.checkout);const icon=s.type==="cruise"?"⛴️":"🏨";
     const meta=[];const pc=phaseChip(s);if(pc)meta.push(pc);const wc=whoChipHTML(s);if(wc)meta.push(wc);
     if(s.cost>0)meta.push(`<span class="stay-cost">${s.payer?`<span class="dot ${s.payer}"></span>`:""}${money(s.cost,s.costcur||"eur")}${s.payer?` · ${esc(COUPLES[s.payer])}`:""}</span>`);
@@ -403,7 +405,7 @@ function renderExpenses(){const wrap=document.getElementById("expenses");const l
 
 function phaseChip(o){return phaseOf(o)==="sl"?`<span class="slp">Samy & Liza</span>`:"";}
 
-function gapNode(from,to,n,title){return`<div class="tl-node gap"><div class="tl-gap"><div class="tl-when">${fmtLong(from)} → ${fmtLong(to)}</div><div class="tl-what">${title} · ${n} nuit${n>1?"s":""}</div><div class="tl-where">Aucun logement renseigné.</div></div></div>`;}
+function gapNode(from,to,n,title){return`<div class="tl-node gap"><div class="tl-gap"><div class="tl-when">${fmtLong(from)} → ${fmtLong(to)}</div><div class="tl-what">${title} · ${n} nuit${n>1?"s":""}</div><div class="tl-where">Aucun logement renseigné.</div><button class="btn-tl" onclick="addStayAtGap('${from}','${to}')">+ Ajouter étape</button></div></div>`;}
 function buildTimeline(phase,start,end,emptyMsg,withDepart){
   const stays=sortedStays().filter(s=>phaseOf(s)===phase);const flights=sortedFlights().filter(f=>phaseOf(f)===phase);
   const allItems=[...stays.map(s=>({t:"stay",date:s.checkin,data:s})),...flights.map(f=>({t:"flight",date:f.date||"",data:f}))].sort((a,b)=>(a.date||"")<(b.date||"")?-1:1);
@@ -414,7 +416,7 @@ function buildTimeline(phase,start,end,emptyMsg,withDepart){
     if(it.t==="stay"){const s=it.data,n=diffN(s.checkin,s.checkout);
       nodes.push({key:s.checkin,html:`<div class="tl-node"><div class="tl-when">${fmtLong(s.checkin)} → ${fmtLong(s.checkout)} · ${n} nuit${n>1?"s":""}</div><div class="tl-what">🏨 ${esc(s.name)||"(sans nom)"} <span style="font-weight:400;font-size:13px;color:var(--muted)">— ${statusLabel(s.status)}</span></div><div class="tl-where">${esc(s.place)||esc(s.address)||""}</div></div>`});
     } else if(it.t==="flight"){const f=it.data;
-      nodes.push({key:f.date,html:`<div class="tl-node"><div class="tl-flight"><div class="tl-when">${fmtLong(f.date)}</div><div class="tl-what">✈ ${esc(f.label)||"(vol)"}</div><div class="tl-where">${[f.flightno,f.airline].filter(Boolean).join(" · ")}</div></div></div>`});
+      nodes.push({key:f.date,html:`<div class="tl-node"><div class="tl-flight"><div class="tl-when">${fmtLong(f.date)}</div><div class="tl-what">✈ ${esc(f.label)||"(vol)"}</div><div class="tl-where">${[f.flightno,f.airline].filter(Boolean).join(" · ")}</div><button class="btn-tl" onclick="addVolAtDate('${f.date}')">+ Ajouter vol</button></div></div>`});
     }
     const nx=allItems[i+1];if(nx&&nx.date>it.date)nodes.push({key:it.date,html:gapNode(it.date,nx.date,diffN(it.date,nx.date),"Trou — où dort-on ?")});
   });
@@ -430,7 +432,10 @@ function renderItinerary(){
 }
 
 function renderAll(){renderHeader();renderStays();renderFlights();renderBudgetCommon();renderBudgetSL();renderExpenses();renderItinerary();
-  document.getElementById("foot").innerHTML="Données synchronisées via Google Apps Script. Vols intégrés à l'itinéraire, budget séparé commun/prolongation.";}
+  document.getElementById("foot").innerHTML="Données synchronisées via Google Apps Script. Itinéraire cliquable, budget en haut, vols intégrés.";}
+
+window.addStayAtGap=(from,to)=>{openForm(null);document.getElementById("f-checkin").value=from;document.getElementById("f-checkout").value=to;applyStayBounds();document.getElementById("form-panel").scrollIntoView({behavior:"smooth",block:"start"});};
+window.addVolAtDate=(date)=>{openFlight(null);document.getElementById("v-date").value=date;applyFlightBounds();document.getElementById("flight-panel").scrollIntoView({behavior:"smooth",block:"start"});};
 
 /* logement form */
 function applyStayBounds(){const p=document.querySelector('input[name="sphase"]:checked').value;const ci=document.getElementById("f-checkin"),co=document.getElementById("f-checkout");const s=p==="sl"?COMMON_END:TRIP_START,e=p==="sl"?SL_END:COMMON_END;ci.min=co.min=s;ci.max=co.max=e;}
@@ -455,7 +460,7 @@ async function saveStay(){const ci=document.getElementById("f-checkin").value,co
   const pe=document.querySelector('input[name="spayer"]:checked');const phase=document.querySelector('input[name="sphase"]:checked').value;const typeEl=document.querySelector('input[name="stype"]:checked');const type=typeEl?typeEl.value:"hotel";const id=document.getElementById("f-id").value||uid();
   const existing=DATA.stays.find(x=>x.id===id);
   const rec={id,phase,type,checkin:ci,checkout:co,name,place:document.getElementById("f-place").value.trim(),address:document.getElementById("f-address").value.trim(),cost:parseFloat(document.getElementById("f-cost").value)||0,costcur:document.getElementById("f-costcur").value,payer:pe?pe.value:"",who:readWho("f-who"),bookedby:document.getElementById("f-bookedby").value,link:document.getElementById("f-link").value.trim(),notes:document.getElementById("f-notes").value.trim(),status:document.querySelector('input[name="status"]:checked').value,files:(existing&&existing.files)||[]};
-  const i=DATA.stays.findIndex(x=>x.id===id);i>=0?DATA.stays[i]=rec:DATA.stays.push(rec);await save();closeForm();renderAll();ensureGeocodes();}
+  const i=DATA.stays.findIndex(x=>x.id===id);i>=0?DATA.stays[i]=rec:DATA.stays.push(rec);await save();closeForm();renderAll();}
 
 /* vol form */
 function applyFlightBounds(){const p=document.querySelector('input[name="vphase"]:checked').value;const d=document.getElementById("v-date");d.min=p==="sl"?COMMON_END:TRIP_START;d.max=p==="sl"?SL_END:COMMON_END;}
@@ -505,14 +510,11 @@ async function saveExp(){const label=document.getElementById("e-label").value.tr
 
 function doExport(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="indonesie-2026-backup.json";a.click();URL.revokeObjectURL(a.href);}
 function doImport(file){const fr=new FileReader();fr.onload=async()=>{try{const d=JSON.parse(fr.result);if(!d||!Array.isArray(d.stays))throw 0;DATA=normalize(d);await save();renderAll();renderAll();alert("Import réussi.");}catch(e){alert("Fichier invalide.");}};fr.readAsText(file);}
-async function ensureGeocodes(){}
 
 document.getElementById("add-btn").onclick=()=>openForm(null);
 document.getElementById("cancel-btn").onclick=closeForm;
 document.getElementById("save-btn").onclick=saveStay;
 document.getElementById("add-flight-btn").onclick=()=>openFlight(null);
-document.getElementById("quick-hotel").onclick=()=>openForm(null);
-document.getElementById("quick-flight").onclick=()=>openFlight(null);
 document.getElementById("flight-cancel").onclick=closeFlight;
 document.getElementById("flight-save").onclick=saveFlight;
 document.getElementById("add-exp-btn").onclick=()=>openExp(null);
